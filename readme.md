@@ -1,16 +1,15 @@
+### settings
+Класс хранящие в себе поля для настроек. 
+
 ### settings_manager
 Класс для управления json файлом settings.
 А так же он управляет классом settings.py, который хранит в себе все поля settings.json.
 
 Пример:
 ```
-item = settings_manager()
+manager = settings_manager()
 
-result = item.open("settings.json")
-
-iten.data
+manager.open("settings.json")
+sets = manager.settings
 ```
-Вернёт все нужные поля из json.
-
-### settings
-Класс хранящие в себе поля для настроек. 
+sets - объект типа Settings со всеми настройками
