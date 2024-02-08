@@ -1,5 +1,5 @@
 from pathlib import Path
-from settings import Settings
+from Src.settings import Settings
 import json
 import uuid
 import os
@@ -48,7 +48,7 @@ class settings_manager(object):
 
 
     def __open(self):
-        settings_file = Path(Path.cwd(), "Lection1", self.__file_name)
+        settings_file = Path(Path.cwd(), self.__file_name)
         if not os.path.exists(settings_file):
             raise Exception("Невозможно открыть файл. Он не существует.")
 
