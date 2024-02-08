@@ -24,6 +24,9 @@ class settings_manager(object):
 
 
     def __convert(self):
+        '''
+        Конвертирует считаные данные из json в объект Settings
+        '''
         if not len(self.__data):
             raise Exception("Невозможно создать объект типа Settings")
 
@@ -45,6 +48,12 @@ class settings_manager(object):
 
     @typecheck(expression=lambda x: x['file_name'])
     def open(self, file_name: str) -> bool:
+        '''
+        Открывает файл настроек.
+
+        Args:
+            file_name: str - путь до файла ввиде строки
+        '''
         self.__file_name = file_name.strip()
 
         try:
