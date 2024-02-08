@@ -31,7 +31,7 @@ class test_settings(unittest.TestCase):
         manager = settings_manager()
 
         manager.open('settings.json')
-        sets = manager.convert()
+        sets = manager.settings
 
         # Берём все неприватные поля и смотрим заполнены ли они
         assert all(getattr(sets, attr) for attr in filter(lambda x: not x.startswith('_'), dir(sets)))

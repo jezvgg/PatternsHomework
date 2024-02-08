@@ -10,7 +10,11 @@ class settings_manager(object):
     __file_name = 'settings.json'
     __unique_number = 0
     __data = {}
-    __settings = Settings()
+    __settings = None
+
+
+    def __init__(self) -> None:
+        self.__unique_number = uuid.uuid4()
 
 
     def __new__(cls):
@@ -19,7 +23,7 @@ class settings_manager(object):
         return cls.instance
 
 
-    def convert(self):
+    def __convert(self):
         if not len(self.__data):
             raise Exception("Невозможно создать объект типа Settings")
 
@@ -28,25 +32,6 @@ class settings_manager(object):
         for field in fields:
             if field not in self.data.keys(): continue
             setattr(self.__settings, field, self.data[field])
-        
-        return self.__settings
-
-
-    def __init__(self) -> None:
-        self.__unique_number = uuid.uuid4()
-
-
-    @property
-    def data(self) -> dict:
-        '''
-        Вернёт словарь значений json.
-        '''
-        return self.__data
-
-
-    @property
-    def number(self):
-        return self.__unique_number
 
 
     def __open(self):
@@ -69,3 +54,29 @@ class settings_manager(object):
         
 
         return True
+    
+
+    @property
+    def data(self) -> dict:
+        '''
+        Вернёт словарь значений json.
+        '''
+        return self.__data
+
+
+    @property
+    def number(self) -> int:
+        '''
+        Уникальный номер синглтона
+        '''
+        return self.__unique_number
+    
+
+    @property
+    def settings(self) -> Settings:
+        '''
+        Возращает открытые настройки
+        '''
+        if not self.__settings:
+            self.__convert()
+        return self.__settings
