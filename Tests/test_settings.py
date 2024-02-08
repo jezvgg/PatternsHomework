@@ -12,13 +12,14 @@ class test_settings(unittest.TestCase):
 
         assert sets.first_name == "a"
 
+
     def test_check_open_settings(self):
         item = settings_manager()
 
         result = item.open("settings.json")
 
-        print(item.data)
         assert result == True
+
 
     def test_check_create_manager(self):
         manager1 = settings_manager()
@@ -27,6 +28,12 @@ class test_settings(unittest.TestCase):
         print(manager1.number)
         print(manager2.number)
         assert manager1.number == manager2.number
+
+
+    def test_check_manager_work(self):
+        manager = settings_manager()
+        pass
+
 
     def test_check_manager_convert(self):
         manager = settings_manager()

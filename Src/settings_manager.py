@@ -27,7 +27,7 @@ class settings_manager(object):
         for field in fields:
             if field not in self.data.keys(): continue
             setattr(self.__settings, field, self.data[field])
-            print(self.__settings.first_name)
+            print(self.data[field])
 
 
     def __init__(self) -> None:
