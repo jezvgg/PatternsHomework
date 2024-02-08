@@ -30,15 +30,19 @@ class test_settings(unittest.TestCase):
         assert manager1.number == manager2.number
 
 
-    def test_check_manager_work(self):
-        manager = settings_manager()
-        pass
-
-
     def test_check_manager_convert(self):
         manager = settings_manager()
-        manager.open("settings.json")
 
-        manager.convert()
+        manager.open('settings.json')
+
+        sets = manager.convert()
+
+        # Берём все неприватные поля и смотрим заполнены ли они
+        assert all(filter(lambda x: not x.startswith('_'), dir(sets)))
+
+
+    def test_check_manager_open(self):
+        manager = settings_manager()
+        assert manager.open("Tests/Settings.json")
 
 
