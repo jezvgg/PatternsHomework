@@ -38,7 +38,7 @@ class test_settings(unittest.TestCase):
         sets = manager.convert()
 
         # Берём все неприватные поля и смотрим заполнены ли они
-        assert all(filter(lambda x: not x.startswith('_'), dir(sets)))
+        assert all(getattr(sets, attr) for attr in filter(lambda x: not x.startswith('_'), dir(sets)))
 
 
     def test_check_manager_open(self):
