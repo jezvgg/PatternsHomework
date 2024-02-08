@@ -1,5 +1,6 @@
 from pathlib import Path
 from Src.settings import Settings
+from Utils.typecheck import typecheck
 import json
 import uuid
 import os
@@ -57,13 +58,8 @@ class settings_manager(object):
             self.__data = json.load(read_file)
 
 
+    @typecheck(expression=lambda x: x['file_name'])
     def open(self, file_name: str) -> bool:
-        if not isinstance(file_name, str):
-            raise Exception("Неправильный тип пути к файлу.")
-
-        if not file_name: 
-            raise Exception("Путь к файлу пустой.")
-
         self.__file_name = file_name.strip()
 
         try:

@@ -5,7 +5,7 @@ import unittest
 
 class test_settings(unittest.TestCase):
 
-    def test_check_first_name(self):
+    def test_settings(self):
         sets = Settings()
 
         sets.first_name = "a  "
@@ -13,35 +13,25 @@ class test_settings(unittest.TestCase):
         assert sets.first_name == "a"
 
 
-    def test_check_open_settings(self):
-        item = settings_manager()
+    def test_open_manager(self):
+        manager = settings_manager()
 
-        result = item.open("settings.json")
+        assert manager.open("settings.json")
+        assert manager.open("Tests/settings2.json")
 
-        assert result == True
 
-
-    def test_check_create_manager(self):
+    def test_create_manager(self):
         manager1 = settings_manager()
         manager2 = settings_manager()
 
-        print(manager1.number)
-        print(manager2.number)
         assert manager1.number == manager2.number
 
 
-    def test_check_manager_convert(self):
+    def test_manager_convert(self):
         manager = settings_manager()
 
         manager.open('settings.json')
-
         sets = manager.convert()
 
         # Берём все неприватные поля и смотрим заполнены ли они
         assert all(getattr(sets, attr) for attr in filter(lambda x: not x.startswith('_'), dir(sets)))
-
-
-    def test_check_manager_open(self):
-        manager = settings_manager()
-        assert manager.open("Tests/Settings.json")
-
