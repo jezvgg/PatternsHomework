@@ -45,4 +45,3 @@ class test_settings(unittest.TestCase):
         manager = settings_manager()
         assert manager.open("Tests/Settings.json")
 
-
