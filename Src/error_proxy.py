@@ -1,4 +1,4 @@
-from Utils.typecheck import typecheck
+
 
 
 class error_proxy:
@@ -23,8 +23,10 @@ class error_proxy:
 
 
     @error_message.setter
-    @typecheck
     def error_message(self, value: str):
+        if not isinstance(value, str):
+            raise TypeError("error_message must be string!")
+
         if not value.strip():
             self.__is_error = False
             return
@@ -42,9 +44,11 @@ class error_proxy:
 
 
     @error_source.setter
-    @typecheck
     def error_source(self, value: str):
+        if not isinstance(value, str):
+            raise TypeError("error_source must be string!")
         if not value: return
+
         self.__error_source = value
         
 

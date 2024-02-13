@@ -1,6 +1,7 @@
 from pathlib import Path
 from Src.settings import Settings
 from Utils.typecheck import typecheck
+from Src.exeptions import argument_exception, operation_exception
 import json
 import uuid
 import os
@@ -31,7 +32,7 @@ class settings_manager(object):
         Конвертирует считаные данные из json в объект Settings
         '''
         if not len(self.__data):
-            raise Exception("Невозможно создать объект типа Settings")
+            raise argument_exception("Невозможно создать объект типа Settings")
 
         fields = dir(self.__settings)
 
@@ -43,7 +44,7 @@ class settings_manager(object):
     def __open(self):
         settings_file = Path(Path.cwd(), self.__file_name)
         if not os.path.exists(settings_file):
-            raise Exception("Невозможно открыть файл. Он не существует.")
+            raise operation_exception("Невозможно открыть файл. Он не существует.")
 
         with open(settings_file) as read_file:
             self.__data = json.load(read_file)
