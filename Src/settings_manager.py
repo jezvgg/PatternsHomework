@@ -7,6 +7,9 @@ import os
 
 
 class settings_manager(object):
+    '''
+    Класс для управления настройками.
+    '''
     __file_name = 'settings.json'
     __unique_number = 0
     __data = {}
