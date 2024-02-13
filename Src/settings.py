@@ -1,6 +1,9 @@
 from Utils.typecheck import typecheck
 
 class Settings:
+    '''
+    Класс хранения настроек.
+    '''
     __firstname = ""
     __INN = 0
     __account = 0
