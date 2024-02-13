@@ -28,39 +28,4 @@ class abstract_referance(ABC):
     @property
     def error(self):
         return self.__error
-
-
-class unit(abstract_referance):
-    '''
-    Единица измерения, надо чтоб были уникальные по названию
-    '''
-    __base = None
-    __num : int
-
-    def __init__(self, base: "unit" = None, num: int = 0, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.__base = base
-        self.__num = num
-
-
-    @property
-    def num(self):
-        return self.__num
-
-
-    @num.setter
-    @typecheck
-    def num(self, value: int):
-        self.__num = value
-
-
-    @property
-    def base(self):
-        return self.__base
-
-
-    def __str__(self):
-        return f"{self.num} {self.name}"
-
-
     
