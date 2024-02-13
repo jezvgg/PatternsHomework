@@ -34,6 +34,8 @@ class settings_manager(object):
         if not len(self.__data):
             raise argument_exception("Невозможно создать объект типа Settings")
 
+        self.__settings = Settings()
+
         fields = dir(self.__settings)
 
         for field in fields:

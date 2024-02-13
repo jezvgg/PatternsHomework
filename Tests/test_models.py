@@ -1,3 +1,4 @@
+from Src.settings_manager import settings_manager
 from Models import *
 import unittest
 
@@ -28,3 +29,9 @@ class test_models(unittest.TestCase):
 
         assert kilobite.to_base.to_base.name == 'bit'
         assert kilobite.to_base.to_base.num == 24576
+
+    def test_organizations(self):
+        manager = settings_manager()
+        manager.open('settings.json')
+        org = organization(settings=manager.settings, name='org')
+        
