@@ -1,16 +1,21 @@
 from Src.settings_manager import settings_manager
-from Models.organization import organization
-from Models.unit import unit
+from Src.exeptions import argument_exception
+from Models import *
 import unittest
 
 
 class test_models(unittest.TestCase):
 
+    def test_abs(self):
+        abc = abstract_referance(name='name')
+
+        assert abc.name == 'name'
+        self.assertRaises(argument_exception, abstract_referance, name='1234567890'*10)
+
     def test_unit(self):
         units = unit(name='gram', num=790)
 
         assert units.num == 790
-        assert units.name == 'gram'
         assert str(units) == "790 gram"
 
     def test_big_unit(self):
@@ -37,4 +42,13 @@ class test_models(unittest.TestCase):
         organ = organization(settings=manager.settings, name='org')
 
         assert all(filter(lambda x: x.startswith('_'), dir(organ)))
-        
+
+    def test_nomen_group(self):
+        group = nomen_group(name='Group one')
+
+        assert bool(group) == True
+
+    def test_nomen(self):
+        nom = nomen(name="nomen1", full_name='big_nomen_2', group = nomen_group('Group'), units=unit(name='unit'))
+
+        assert bool(nom) == True

@@ -10,6 +10,7 @@ class organization(abstract_referance):
     _type:str = ''
 
 
+    @typecheck
     def __init__(self, settings: Settings, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in dir(self):
