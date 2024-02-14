@@ -3,7 +3,7 @@ from Src.settings import Settings
 from Utils.typecheck import typecheck
 
 
-class organization(abstract_referance):
+class organization_model(abstract_referance):
     __INN:str = ''
     __BIK:str = ''
     __account:str = ''

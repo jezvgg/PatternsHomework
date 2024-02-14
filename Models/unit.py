@@ -2,7 +2,7 @@ from Models.abstract_references import abstract_referance
 from Utils.typecheck import typecheck
 
 
-class unit(abstract_referance):
+class unit_model(abstract_referance):
     '''
     Единица измерения, надо чтоб были уникальные по названию.
     '''
@@ -22,7 +22,7 @@ class unit(abstract_referance):
     def to_base(self):
         num = self.num*self.coef
 
-        return unit(base=self.base.base, num=num, coef=self.base.coef, name=self.base.name)
+        return unit_model(base=self.base.base, num=num, coef=self.base.coef, name=self.base.name)
 
 
     @property
