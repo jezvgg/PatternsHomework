@@ -12,6 +12,9 @@ class organization(abstract_referance):
 
     @typecheck
     def __init__(self, settings: Settings, *args, **kwargs):
+        '''
+        _INN, _BIK, _account, _type - you can get, but don't set.
+        '''
         super().__init__(*args, **kwargs)
         for field in dir(self):
             if hasattr(settings, field[1:]):
