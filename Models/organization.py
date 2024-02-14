@@ -4,10 +4,10 @@ from Utils.typecheck import typecheck
 
 
 class organization(abstract_referance):
-    _INN:str = ''
-    _BIK:str = ''
-    _account:str = ''
-    _type:str = ''
+    __INN:str = ''
+    __BIK:str = ''
+    __account:str = ''
+    __type:str = ''
 
 
     @typecheck
@@ -17,6 +17,25 @@ class organization(abstract_referance):
         '''
         super().__init__(*args, **kwargs)
         for field in dir(self):
-            if hasattr(settings, field[1:]):
-                setattr(self, field, getattr(settings, field[1:]))
+            if f'_{self.__class__.__name__}__' in field and hasattr(settings, field.replace(f'_{self.__class__.__name__}__', '')):
+                setattr(self, field, getattr(settings, field.replace(f'_{self.__class__.__name__}__', '')))
 
+
+    @property
+    def INN(self):
+        return self._INN
+
+
+    @property
+    def BIK(self):
+        return self._BIK
+
+
+    @property
+    def account(self):
+        return self._account
+
+
+    @property
+    def type(self):
+        return self._type
