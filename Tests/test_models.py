@@ -1,5 +1,6 @@
 from Src.settings_manager import settings_manager
-from Models import *
+from Models.organization import organization
+from Models.unit import unit
 import unittest
 
 
@@ -33,5 +34,7 @@ class test_models(unittest.TestCase):
     def test_organizations(self):
         manager = settings_manager()
         manager.open('settings.json')
-        org = organization(settings=manager.settings, name='org')
+        organ = organization(settings=manager.settings, name='org')
+
+        assert all(filter(lambda x: x.startswith('_'), dir(organ)))
         

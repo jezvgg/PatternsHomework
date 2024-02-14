@@ -20,7 +20,7 @@ class abstract_referance(ABC):
 
 
     @name.setter
-    @typecheck
+    @typecheck(expression = lambda x: len(x['value']) < 50)
     def name(self, value: str):
         self.__name = value.strip()
 
