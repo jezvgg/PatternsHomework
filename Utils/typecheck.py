@@ -1,4 +1,6 @@
 from functools import wraps
+from Src.exeptions import argument_exception
+
 
 def typecheck(_func = None, expression = lambda x: True):
 
@@ -15,10 +17,10 @@ def typecheck(_func = None, expression = lambda x: True):
             for key in var.keys():
                 if key not in anot.keys(): continue
                 if not isinstance(var[key], anot[key]):
-                    raise TypeError("Несоответсвие типов.")
+                    raise argument_exception("Несоответсвие типов.")
                 
             if expression and not expression(var):
-                raise Exception("Передаваемые аргументы не соответсвтуют ограничениям.")
+                raise argument_exception("Передаваемые аргументы не соответсвтуют ограничениям.")
         
             return func(*args, **kwargs)
         
