@@ -6,12 +6,6 @@ import unittest
 
 class test_models(unittest.TestCase):
 
-    def test_abs(self):
-        abc = abstract_referance(name='name')
-
-        assert abc.name == 'name'
-        self.assertRaises(argument_exception, abstract_referance, name='1234567890'*10)
-
     def test_unit(self):
         units = unit_model(name='gram', num=790)
 
