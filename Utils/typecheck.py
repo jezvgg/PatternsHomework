@@ -4,7 +4,7 @@ from Src.exeptions import argument_exception
 
 def typecheck(_func = None, expression = lambda x: True):
 
-    def typechecker(func):
+    def typechecker(func: function):
         '''
         Декоратор для проверки входных функций.
 
@@ -14,6 +14,7 @@ def typecheck(_func = None, expression = lambda x: True):
         def wrapper(*args, **kwargs):
             var = dict(zip(func.__code__.co_varnames, args)) | kwargs
             anot = func.__annotations__
+            print(func.__code__.co_cellvars, func.__code__.co_consts, func.__code__.co_nlocals)
             for key in var.keys():
                 if key not in anot.keys(): continue
                 if not isinstance(var[key], anot[key]):

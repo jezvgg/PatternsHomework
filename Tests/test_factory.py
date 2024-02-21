@@ -2,6 +2,7 @@ import unittest
 from Models import *
 from Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
+from Storage.storage import storage
 
 
 class test_factory(unittest.TestCase):
@@ -19,6 +20,12 @@ class test_factory(unittest.TestCase):
 
     def test_factory_create(self):
         manager = settings_manager()
-        nomens = start_factory(manager.settings).create()
+        factory = start_factory(manager.settings)
+        
+        result = factory.create()
 
-        assert len(nomens) > 0
+        assert len(result) > 0
+        assert factory.storage is not None
+        assert storage.nomenculature_key in factory.storage.data
+        assert storage.group_key in factory.storage.data
+        assert storage.unit_key in factory.storage.data
