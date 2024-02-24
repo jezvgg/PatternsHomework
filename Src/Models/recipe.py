@@ -1,9 +1,34 @@
 from Src.Models.abstract_references import abstract_referance
 from Utils.typecheck import typecheck
-from Models import *
+from Src.Models import *
+
 
 
 class recipe_model(abstract_referance):
+    __rows: list
+    __description: str
+
+
+    @typecheck
+    def __init__(self, name, *args, description: str = 'Киньте всё в одну чашу и перемешайте.'):
+        self.__rows = list(args)
+        self.description = description
+        super().__init__(name=name)
+
+
+    @property
+    def description(self):
+        return self.__description
+
+
+    @description.setter
+    @typecheck(expression=lambda x: x['value'])
+    def description(self, value: str):
+        self.__description = value
+
+
+
+class recipe_row_model(abstract_referance):
     __nomenculatures: nomen_model = None
     __size: int = 0
     __unit: unit_model = None
@@ -15,7 +40,7 @@ class recipe_model(abstract_referance):
         self.__size = size
         self.__unit = unit
 
-        super().__init__(f"{self.__nomenculatures.name}, {self.__unit.name}")
+        super().__init__(name=f"{self.__nomenculatures.name}, {size} {self.__unit.name}")
 
 
     @property

@@ -3,7 +3,6 @@
 
 class storage:
     __data: dict = {}
-    __nomenculature_key = 'nomenculature'
 
 
     def __new__(cls):
@@ -22,6 +21,7 @@ class storage:
     def nomenculature_key():
         return 'nomenculature'
 
+
     @property
     @staticmethod
     def group_key():
@@ -33,6 +33,15 @@ class storage:
     @property
     @staticmethod
     def unit_key():
+        '''
+            Список единиц измерения
+        '''
+        return 'unit'
+
+    
+    @property
+    @staticmethod
+    def recipe_key():
         '''
             Список единиц измерения
         '''
