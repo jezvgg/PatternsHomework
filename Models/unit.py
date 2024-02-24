@@ -11,6 +11,49 @@ class unit_model(abstract_referance):
     __coef: int
 
 
+    @staticmethod
+    def create_gramm():
+        '''
+        Создать единицу измерения грамм
+        '''
+        item = unit_model(name="грамм", base=None, coef=1)
+        return item
+
+
+    @staticmethod
+    def create_kilogramm():
+        '''
+        Создать единицу измерения килограмм
+        '''
+        item = unit_model(name="килограмм", base=unit_model.create_gramm(), coef=1000)
+        return item
+
+
+    @staticmethod
+    def create_count():
+        '''
+        Создать единицу измерения количества
+        '''
+        item = unit_model(name="штуки", base=None, coef=1)
+        return item
+
+
+    @staticmethod
+    def create_milolitres():
+        '''
+            Создать единицу измерения жидкости
+        '''
+        return unit_model(name='миллилитры', base=None, coef=1)
+
+
+    @staticmethod
+    def create_litres():
+        '''
+            Создать единицу измерения жидкости
+        '''
+        return unit_model(name='литры', base=unit_model.create_milolitres(), coed=1000)
+
+
     def __init__(self, base = None, num: int = 0, coef: int = 0, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__base = self

@@ -10,6 +10,7 @@ class Settings:
     __corr_account = 0
     __BIK = 0
     __type = ""
+    __first_start = True
 
 
     @property
@@ -96,3 +97,15 @@ class Settings:
         if len(value) > 5: raise Exception("Некооректный вид собственности")
 
         self.__type = value.strip()
+
+
+    @property
+    def is_first_start(self):
+        return self.__first_start
+
+
+    @is_first_start.setter
+    @typecheck
+    def is_first_start(self, value: bool):
+        self.__first_start = value
+
