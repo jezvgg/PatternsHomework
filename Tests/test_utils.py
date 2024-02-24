@@ -21,3 +21,12 @@ class test_utils(unittest.TestCase):
         assert smth(2,2) == 4
         self.assertRaises(argument_exception, smth, 'a', 'b')
         self.assertRaises(argument_exception, smth, 6, 5)
+
+
+    def test_set_checher_limit(self):
+        @typecheck(expression = lambda x: x['b'] <= 4)
+        def smth(a:int, b:int = 0):
+            return a+b
+
+        assert smth(4) == 4
+        self.assertRaises(argument_exception, smth,4, 5)

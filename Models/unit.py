@@ -56,7 +56,6 @@ class unit_model(abstract_referance):
 
     def __init__(self, base = None, num: int = 0, coef: int = 0, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.__base = self
         if base: self.__base = base
         self.num = num
         self.__coef = coef

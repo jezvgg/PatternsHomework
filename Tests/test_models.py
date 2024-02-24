@@ -18,6 +18,8 @@ class test_models(unittest.TestCase):
 
         gram_in_kilo = kilogram.to_base
 
+        print(gram_in_kilo.base)
+
         assert gram_in_kilo.name == 'gram'
         assert gram_in_kilo.base == None
         assert gram_in_kilo.num == 2000
@@ -43,6 +45,6 @@ class test_models(unittest.TestCase):
         assert bool(group) == True
 
     def test_nomen(self):
-        nom = nomen_model(name="nomen1", full_name='big_nomen_2', group = nomen_group_model('Group'), units=unit_model(name='unit'))
+        nom = nomen_model(name="nomen1", group = nomen_group_model('Group'), units=unit_model(name='unit'))
 
         assert bool(nom) == True
