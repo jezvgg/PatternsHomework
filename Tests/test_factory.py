@@ -1,8 +1,8 @@
 import unittest
-from Models import *
-from Logics.start_factory import start_factory
+from Src.Models import *
+from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
-from Storage.storage import storage
+from Src.Storage.storage import storage
 
 
 class test_factory(unittest.TestCase):

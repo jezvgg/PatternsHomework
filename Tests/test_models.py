@@ -1,6 +1,5 @@
 from Src.settings_manager import settings_manager
-from Src.exeptions import argument_exception
-from Models import *
+from Src.Models import *
 import unittest
 
 

@@ -1,4 +1,4 @@
-from Models.abstract_references import abstract_referance
+from Src.Models.abstract_references import abstract_referance
 from Utils.typecheck import typecheck
 from Models import *
 

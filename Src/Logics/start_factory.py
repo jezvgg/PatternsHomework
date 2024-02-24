@@ -1,6 +1,6 @@
-from Models import *
+from Src.Models import *
 from Src.settings import Settings
-from Storage.storage import storage
+from Src.Storage.storage import storage
 
 
 class start_factory:
