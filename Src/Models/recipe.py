@@ -1,31 +1,9 @@
 from Src.Models.abstract_references import abstract_referance
+from Src.exeptions import argument_exception
+from functools import singledispatch
 from Utils.typecheck import typecheck
+from pathlib import Path
 from Src.Models import *
-
-
-
-class recipe_model(abstract_referance):
-    __rows: list
-    __description: str
-
-
-    @typecheck
-    def __init__(self, name, *args, description: str = 'Киньте всё в одну чашу и перемешайте.'):
-        self.__rows = list(args)
-        self.description = description
-        super().__init__(name=name)
-
-
-    @property
-    def description(self):
-        return self.__description
-
-
-    @description.setter
-    @typecheck(expression=lambda x: x['value'])
-    def description(self, value: str):
-        self.__description = value
-
 
 
 class recipe_row_model(abstract_referance):
@@ -62,3 +40,26 @@ class recipe_row_model(abstract_referance):
     @property
     def unit(self):
         return self.__unit
+
+
+class recipe_model(abstract_referance):
+    __rows: list
+    __description: str
+
+
+    @typecheck
+    def __init__(self, name: str, rows: list[recipe_row_model], description: str = ''):
+        self.__rows = rows
+        self.description = description
+        super().__init__(name)
+
+
+    @property
+    def description(self):
+        return self.__description
+
+
+    @description.setter
+    @typecheck(expression=lambda x: x['value'])
+    def description(self, value: str):
+        self.__description = value

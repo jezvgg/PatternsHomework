@@ -1,5 +1,6 @@
 from functools import wraps
 from Src.exeptions import argument_exception
+from Utils.instance import instance_checker
 
 
 def typecheck(_func = None, expression = lambda x: True):
@@ -25,9 +26,10 @@ def typecheck(_func = None, expression = lambda x: True):
                     var[varname] = arguments.pop(0)
 
             anot = func.__annotations__
+
             for key in var.keys():
-                if key not in anot.keys(): continue
-                if not isinstance(var[key], anot[key]):
+                if anot and key not in anot.keys(): continue
+                if not instance_checker(var[key], anot[key]):
                     raise argument_exception("Несоответсвие типов.")
                 
             if expression and not expression(var):

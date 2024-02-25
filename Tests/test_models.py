@@ -1,4 +1,5 @@
 from Src.settings_manager import settings_manager
+from pathlib import Path
 from Src.Models import *
 import unittest
 
@@ -52,8 +53,8 @@ class test_models(unittest.TestCase):
 
     def test_recipe(self):
         recept = recipe_model(
-                'ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ',
-            recipe_row_model(
+                name='ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ',
+                rows=[recipe_row_model(
                 nomenculature = nomen_model(name='Пшеничная мука', group=nomen_group_model.create_group(), units=unit_model.create_kilogramm()),
                 unit=unit_model.create_gramm(),
                 size=100
@@ -77,7 +78,7 @@ class test_models(unittest.TestCase):
                 nomenculature = nomen_model(name='Ванилин', group=nomen_group_model.create_group(), units=unit_model.create_gramm()),
                 unit=unit_model.create_gramm(),
                 size=5
-                ),
+                )],
             description='''
             Время приготовления: 20 мин
 

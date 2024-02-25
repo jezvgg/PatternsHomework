@@ -51,7 +51,7 @@ class unit_model(abstract_referance):
         '''
             Создать единицу измерения жидкости
         '''
-        return unit_model(name='литры', base=unit_model.create_milolitres(), coed=1000)
+        return unit_model(name='литры', base=unit_model.create_milolitres(), coef=1000)
 
 
     def __init__(self, base = None, coef: int = 0, *args, **kwargs):

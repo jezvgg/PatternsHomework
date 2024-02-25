@@ -14,9 +14,12 @@ class test_factory(unittest.TestCase):
 
     def test_start_factory(self):
         nomens = start_factory.create_nomenculature()
+        recepts = start_factory.create_recipets()
 
         assert nomens is not None
         assert len(nomens) != 0
+        assert recepts is not None
+        assert len(recepts) != 0
 
     def test_factory_create(self):
         manager = settings_manager()

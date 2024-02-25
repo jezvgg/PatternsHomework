@@ -21,10 +21,12 @@ class start_factory:
         if not self.__storage:
             self.__storage = storage()
 
-        self.__storage.data[storage.nomenculature_key] = start_factory.create_nomenculature()
-        self.__storage.data[storage.unit_key] = set([x.units for x in start_factory.create_nomenculature()])
-        self.__storage.data[storage.group_key] = set([x.group for x in start_factory.create_nomenculature()])
-        self.__storage.data[storage.recipe_key] = start_factory.create_recipets()
+        nomens = start_factory.create_nomenculature()
+        recepts = start_factory.create_recipets()
+        self.__storage.data[storage.nomenculature_key] = nomens
+        self.__storage.data[storage.unit_key] = list(set([x.units for x in nomens]))
+        self.__storage.data[storage.group_key] = list(set([x.group for x in nomens]))
+        self.__storage.data[storage.recipe_key] = recepts
 
 
     @property
@@ -34,13 +36,10 @@ class start_factory:
 
     def create(self) -> list:
         if not self.__options.is_first_start: return []
+        if not self.__storage: self.__build()
 
-        result = []
         self.__options.is_first_start = False
-        result += start_factory.create_nomenculature()
-        result += set([x.units for x in start_factory.create_nomenculature()])
-        result += set([x.group for x in start_factory.create_nomenculature()])
-        result += start_factory.create_recipe()
+        result = list(self.__storage.data.values())
             
         return result
 
@@ -61,8 +60,8 @@ class start_factory:
         nomen_model(name='Белый хлеб', group=nomen_group, units=unit_model.create_gramm()),
         nomen_model(name='Соль', group=nomen_group, units=unit_model.create_gramm()),
         nomen_model(name='Чёрный перец', group=nomen_group, units=unit_model.create_gramm()),
-        nomen_model(name='Оливковое масло', group=nomen_group, units=unit_model.create_milolitres()),
-        nomen_model(name='Лимонный сок', group=nomen_group, units=unit_model.create_milolitres()),
+        nomen_model(name='Оливковое масло', group=nomen_group, units=unit_model.create_litres()),
+        nomen_model(name='Лимонный сок', group=nomen_group, units=unit_model.create_litres()),
         nomen_model(name='Горчица дижонская', group=nomen_group, units=unit_model.create_gramm()),
         nomen_model(name='Яичный белок', group=nomen_group, units=unit_model.create_count()),
         nomen_model(name='Сахарная пудла', group=nomen_group, units=unit_model.create_gramm()),
@@ -75,8 +74,8 @@ class start_factory:
     def create_recipets():
         return [
             recipe_model(
-                'ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ',
-            recipe_row_model(
+                name='ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ',
+            rows=[recipe_row_model(
                 nomenculature = nomen_model(name='Пшеничная мука', group=nomen_group_model.create_group(), units=unit_model.create_kilogramm()),
                 unit=unit_model.create_gramm(),
                 size=100
@@ -100,7 +99,7 @@ class start_factory:
                 nomenculature = nomen_model(name='Ванилин', group=nomen_group_model.create_group(), units=unit_model.create_gramm()),
                 unit=unit_model.create_gramm(),
                 size=5
-                ),
+                )],
             description='''
             Время приготовления: 20 мин
 
