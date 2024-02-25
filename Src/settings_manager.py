@@ -19,6 +19,7 @@ class settings_manager(object):
 
     def __init__(self) -> None:
         self.__unique_number = uuid.uuid4()
+        self.__open()
 
 
     def __new__(cls):

@@ -1,60 +1,81 @@
-from Src.settings_manager import settings_manager
-from pathlib import Path
 from Src.Models import *
-import unittest
+from Src.settings import Settings
+from Src.Storage.storage import storage
 
 
-class test_models(unittest.TestCase):
-
-    def test_unit(self):
-        units = unit_model(name='gram')
-
-        assert units.name == 'gram'
-
-    def test_big_unit(self):
-        gram = unit_model(name='gram')
-        kilogram = unit_model(base=gram, coef=1000, name='kilogram')
-
-        gram_in_kilo = kilogram.to_base
-
-        assert gram_in_kilo.name == 'gram'
-        assert gram_in_kilo.base == None
+class start_factory:
+    __options: Settings = None
+    __storage: storage = None
 
 
-    def test_biggest_unit(self):
-        bit = unit_model(name='bit')
-        bite = unit_model(name='bite', base=bit, coef=8)
-        kilobite = unit_model(name='kilobite', base=bite, coef=1024)
+    def __init__(self, options: Settings, storage_: storage = None) -> None:
+        self.__options = options
+        self.__storage = storage_
+        self.__build()
 
-        assert kilobite.to_base.to_base.name == 'bit'
 
-    def test_organizations(self):
-        manager = settings_manager()
-        manager.open('settings.json')
-        organ = organization_model(settings=manager.settings, name='org')
+    def __build(self):
+        '''
+            Сформулировать данные в словаре
+        '''
+        if not self.__storage:
+            self.__storage = storage()
 
-        assert all(filter(lambda x: x.startswith('_'), dir(organ)))
+        nomens = start_factory.create_nomenculature()
+        recepts = start_factory.create_recipets()
+        self.__storage.data[storage.nomenculature_key] = nomens
+        self.__storage.data[storage.unit_key] = list(set([x.units for x in nomens]))
+        self.__storage.data[storage.group_key] = list(set([x.group for x in nomens]))
+        self.__storage.data[storage.recipe_key] = recepts
 
-    def test_nomen_group(self):
-        group = nomen_group_model(name='Group one')
 
-        assert bool(group) == True
+    @property
+    def storage(self):
+        return self.__storage
 
-    def test_nomen(self):
-        nom = nomen_model(name="nomen1", group = nomen_group_model('Group'), units=unit_model(name='unit'))
 
-        assert bool(nom) == True
+    def create(self) -> list:
+        if not self.__options.is_first_start: return []
+        if not self.__storage: self.__build()
 
-    def test_recipe_row(self):
-        row = recipe_row_model(nomenculature=nomen_model(name="nomen1", group = nomen_group_model('Group'), units=unit_model(name='unit')),
-        size=200, unit=unit_model.create_gramm())
+        self.__options.is_first_start = False
+        result = list(self.__storage.data.values())
+            
+        return result
 
-        assert bool(row) == True
+    
+    @staticmethod
+    def create_nomenculature():
+        nomen_group = nomen_group_model.create_group()
+        return [
+        nomen_model(name='Пшеничная мука', full_name='Пшеничная мука', group=nomen_group, units=unit_model.create_kilogramm()),
+        nomen_model(name='Сахар', full_name='Сахар', group=nomen_group, units=unit_model.create_kilogramm()),
+        nomen_model(name='Сливочное масло', full_name='Сливочное масло', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Яйца', full_name='Яйца', group=nomen_group, units=unit_model.create_count()),
+        nomen_model(name='Ванилин', full_name='Ванилин', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Куриное филе', group=nomen_group, units=unit_model.create_kilogramm()),
+        nomen_model(name='Салат Романо', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Сыр Пармезан', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Чеснок', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Белый хлеб', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Соль', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Чёрный перец', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Оливковое масло', group=nomen_group, units=unit_model.create_litres()),
+        nomen_model(name='Лимонный сок', group=nomen_group, units=unit_model.create_litres()),
+        nomen_model(name='Горчица дижонская', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Яичный белок', group=nomen_group, units=unit_model.create_count()),
+        nomen_model(name='Сахарная пудла', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Корица', group=nomen_group, units=unit_model.create_gramm()),
+        nomen_model(name='Какао', group=nomen_group, units=unit_model.create_gramm())
+        ]
 
-    def test_recipe(self):
-        recept = recipe_model(
+
+    @staticmethod
+    def create_recipets():
+        return [
+            recipe_model(
                 name='ВАФЛИ ХРУСТЯЩИЕ В ВАФЕЛЬНИЦЕ',
-                rows=[recipe_row_model(
+            rows=[recipe_row_model(
                 nomenculature = nomen_model(name='Пшеничная мука', group=nomen_group_model.create_group(), units=unit_model.create_kilogramm()),
                 unit=unit_model.create_gramm(),
                 size=100
@@ -91,5 +112,4 @@ class test_models(unittest.TestCase):
 Разогрейте вафельницу по инструкции к ней. У меня очень старая, еще советских времен электровафельница. Она может и не очень красивая, но печет замечательно! Я не смазываю вафельницу маслом, в тесте достаточно жира, да и к ней уже давно ничего не прилипает. Но вы смотрите по своей модели. Выкладывайте тесто по столовой ложке. Можно класть немного меньше теста, тогда вафли будут меньше и их получится больше.
 Пеките вафли несколько минут до золотистого цвета. Осторожно откройте вафельницу, она очень горячая! Снимите вафлю лопаткой. Горячая она очень мягкая, как блинчик. Но по мере остывания становится твердой и хрустящей. Такие вафли можно свернуть трубочкой. Но делать это надо сразу же после выпекания, пока она мягкая и горячая, потом у вас ничего не получится, вафля поломается. Приятного аппетита!
             ''')
-        assert bool(recept) == True
-
+        ]

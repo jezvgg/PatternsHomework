@@ -14,14 +14,13 @@ class abstract_referance(ABC):
         self.name = name
         self.__id = uuid.uuid4()
 
-
     @property
     def name(self):
         return self.__name.strip()
 
 
     @name.setter
-    @typecheck(expression = lambda x: len(x['value']) < 50)
+    @typecheck
     def name(self, value: str):
         self.__name = value.strip()
 

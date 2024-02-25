@@ -1,5 +1,6 @@
 from functools import wraps
 from Src.exeptions import argument_exception
+from Utils.instance import instance_checker
 
 
 def typecheck(_func = None, expression = lambda x: True):
@@ -12,11 +13,23 @@ def typecheck(_func = None, expression = lambda x: True):
         '''
         @wraps(func)
         def wrapper(*args, **kwargs):
-            var = dict(zip(func.__code__.co_varnames, args)) | kwargs
+            arguments = list(args)[:]
+            if func.__defaults__:
+                arguments = list(args)+list(func.__defaults__)
+
+            var = {}
+            for varname in func.__code__.co_varnames:
+                if varname in kwargs.keys(): 
+                    var[varname] = kwargs[varname]
+                    continue
+                if arguments:
+                    var[varname] = arguments.pop(0)
+
             anot = func.__annotations__
+
             for key in var.keys():
-                if key not in anot.keys(): continue
-                if not isinstance(var[key], anot[key]):
+                if anot and key not in anot.keys(): continue
+                if not instance_checker(var[key], anot[key]):
                     raise argument_exception("Несоответсвие типов.")
                 
             if expression and not expression(var):
