@@ -23,10 +23,10 @@ class start_factory:
 
         nomens = start_factory.create_nomenculature()
         recepts = start_factory.create_recipets()
-        self.__storage.data[storage.nomenculature_key] = nomens
-        self.__storage.data[storage.unit_key] = list(set([x.units for x in nomens]))
-        self.__storage.data[storage.group_key] = list(set([x.group for x in nomens]))
-        self.__storage.data[storage.recipe_key] = recepts
+        self.__storage.data[storage.nomenculature_key()] = nomens
+        self.__storage.data[storage.unit_key()] = list(set([x.units for x in nomens]))
+        self.__storage.data[storage.group_key()] = list(set([x.group for x in nomens]))
+        self.__storage.data[storage.recipe_key()] = recepts
 
 
     @property

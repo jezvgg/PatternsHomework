@@ -26,6 +26,11 @@ class abstract_referance(ABC):
 
 
     @property
-    def error(self):
+    def _error(self):
         return self.__error
+
+
+    @property
+    def id(self):
+        return self.__id
     

@@ -16,13 +16,11 @@ class storage:
         return self.__data
 
 
-    @property
     @staticmethod
     def nomenculature_key():
         return 'nomenculature'
 
 
-    @property
     @staticmethod
     def group_key():
         '''
@@ -30,19 +28,18 @@ class storage:
         '''
         return 'group'
 
-    @property
+
     @staticmethod
-    def unit_key():
+    def unit_key() -> str:
         '''
             Список единиц измерения
         '''
         return 'unit'
 
     
-    @property
     @staticmethod
     def recipe_key():
         '''
             Список единиц измерения
         '''
-        return 'unit'
+        return 'recipe'
