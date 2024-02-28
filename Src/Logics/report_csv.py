@@ -7,7 +7,21 @@ class report_csv(report):
 
     @typecheck
     def create(self, storage_key: str):
-        print(list(filter(lambda x: not x[0].startswith('_') and not inspect.ismethod(x[1]),inspect.getmembers(self._storage.data[storage_key][0]))))
 
-        
-        return list(filter(lambda x: not x.startswith('_'),dir(self._storage.data[storage_key][0])))
+        obj = self._storage.data[storage_key][0]
+        for x in dir(obj):
+            if not x.startswith('_'):
+                # print(x)
+                # print(getattr(obj, x))
+                #print(hasattr(getattr(obj, x), 'head'))
+                #print('\n',x)
+                #print('value:',getattr(obj, x))
+                #print(type(getattr(obj, x)))
+                if hasattr(getattr(obj, x), 'head'):
+                    print('\n',x)
+                    print('value:',getattr(obj, x))
+                    print('name:',getattr(getattr(obj, x), 'head'))
+                pass
+
+        print(self._storage.data[storage_key][0].coef)
+ 

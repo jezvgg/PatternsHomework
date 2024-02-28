@@ -29,6 +29,7 @@ class test_factory(unittest.TestCase):
 
         assert len(result) > 0
         assert factory.storage is not None
-        assert storage.nomenculature_key in factory.storage.data
-        assert storage.group_key in factory.storage.data
-        assert storage.unit_key in factory.storage.data
+        assert storage.nomenculature_key() in factory.storage.data
+        assert storage.group_key() in factory.storage.data
+        assert storage.unit_key() in factory.storage.data
+        assert storage.recipe_key() in factory.storage.data

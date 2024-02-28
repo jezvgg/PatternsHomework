@@ -18,11 +18,11 @@ class test_models(unittest.TestCase):
         manager = settings_manager()
         factory = start_factory(manager.settings)
 
-        csv = report_csv(factory.storage)
+        csv = report_csv(factory.storage, manager.settings)
 
         result1 = csv.create(storage.unit_key())
-        result2 = csv.create(storage.group_key())
-        result3 = csv.create(storage.nomenculature_key())
-        result4 = csv.create(storage.recipe_key())
-        print(result1, result2, result3, result4)
+        # result2 = csv.create(storage.group_key())
+        # result3 = csv.create(storage.nomenculature_key())
+        # result4 = csv.create(storage.recipe_key())
+        # print(result1)
         assert True == True

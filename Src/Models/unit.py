@@ -1,5 +1,6 @@
 from Src.Models.abstract_references import abstract_referance
 from Utils.typecheck import typecheck
+from Utils.header import header
 
 
 class unit_model(abstract_referance):
@@ -62,7 +63,9 @@ class unit_model(abstract_referance):
 
     @property
     def to_base(self):
-        return unit_model(base=self.base.base, coef=self.base.coef, name=self.base.name)
+        if self.base:
+            return unit_model(base=self.base.base, coef=self.base.coef, name=self.base.name)
+        return self
 
 
     @property
@@ -71,5 +74,6 @@ class unit_model(abstract_referance):
 
 
     @property
+    @header
     def coef(self):
         return self.__coef
