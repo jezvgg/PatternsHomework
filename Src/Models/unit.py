@@ -63,17 +63,18 @@ class unit_model(abstract_referance):
 
     @property
     def to_base(self):
-        if self.base:
+        if hasattr(self.base, 'base'):
             return unit_model(base=self.base.base, coef=self.base.coef, name=self.base.name)
         return self
 
 
     @property
+    @header(name='Базовая модель')
     def base(self):
         return self.__base
 
 
     @property
-    @header
+    @header(name='Коэффицент')
     def coef(self):
         return self.__coef

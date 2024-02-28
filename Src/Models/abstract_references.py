@@ -2,6 +2,7 @@ import uuid
 from abc import ABC
 from Src.error_proxy import error_proxy
 from Utils.typecheck import typecheck
+from Utils.header import header
 
 
 class abstract_referance(ABC):
@@ -12,9 +13,10 @@ class abstract_referance(ABC):
 
     def __init__(self, name: str = None):
         self.name = name
-        self.__id = uuid.uuid4()
+        self.__id = str(uuid.uuid4())
 
     @property
+    @header(name='Название')
     def name(self):
         return self.__name.strip()
 
@@ -31,6 +33,7 @@ class abstract_referance(ABC):
 
 
     @property
+    @header
     def id(self):
         return self.__id
     

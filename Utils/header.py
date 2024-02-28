@@ -1,32 +1,33 @@
 from functools import wraps
 
+class result_int(int): pass
+class result_float(float): pass
+class result_list(list): pass
+class result_tuple(tuple): pass
+class result_string(str): pass
+class result_dict(dict): pass
 
-# class header:
-#     name: str
-#     func = None
 
-#     def __init__(self, func, name=''):
-#         print(func)
-#         self.func = func
-#         self.name = name
+results = {int:result_int, float:result_float, list:result_list, tuple:result_tuple,str:result_string,dict:result_dict,type(None):result_string,bool:result_string}
 
-#     def __call__(self, cls):
-#         @wraps(self.func)
-#         def wrapper(*args, **kwargs):
-#             return self.func(cls, *args, **kwargs)
-#         wrapper.head = 'head'
-#         return wrapper
 
-def header(func):
-    print(func.__name__)
-    def wrapper(*args, **kwargs):
-        var = func(*args, **kwargs)
-        # print(type(var))
-        class result(type(var)):
+def header(_func = None, name =''):
 
-            def __init__(self, *args):
-                super().__init__()
-                self.head = 'head'
+    def export_header(func):
+        name_ = name
+        if not name_: name_ = func.__name__
 
-        return result(var)
-    return wrapper
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            var = func(*args, **kwargs)
+            result = var
+            if type(var) in results.keys():
+                result = results[type(var)](var)
+            setattr(result, 'head', name_)
+
+            return result
+        return wrapper
+
+    if _func is None:
+        return export_header
+    return export_header(_func)
