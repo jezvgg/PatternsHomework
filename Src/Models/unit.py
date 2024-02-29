@@ -1,6 +1,5 @@
 from Src.Models.abstract_references import abstract_referance
-from Utils.typecheck import typecheck
-from Utils.header import header
+from Utils import attribute
 
 
 class unit_model(abstract_referance):
@@ -8,7 +7,6 @@ class unit_model(abstract_referance):
     Единица измерения, надо чтоб были уникальные по названию.
     '''
     __base = None
-    __num : int
     __coef: int
 
 
@@ -68,13 +66,11 @@ class unit_model(abstract_referance):
         return self
 
 
-    @property
-    @header(name='Базовая модель')
+    @attribute(head='Базовая единица')
     def base(self):
         return self.__base
 
 
-    @property
-    @header(name='Коэффицент')
+    @attribute(head='Коэффицент')
     def coef(self):
         return self.__coef

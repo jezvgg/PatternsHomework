@@ -1,11 +1,10 @@
 import uuid
 from abc import ABC
 from Src.error_proxy import error_proxy
-from Utils.typecheck import typecheck
-from Utils.header import header
+from Utils import attribute, typecheck, AttrWorker
 
 
-class abstract_referance(ABC):
+class abstract_referance(ABC, AttrWorker):
     __id: uuid.UUID
     __name: str = ''
     __error: error_proxy = error_proxy()
@@ -15,8 +14,12 @@ class abstract_referance(ABC):
         self.name = name
         self.__id = str(uuid.uuid4())
 
-    @property
-    @header(name='Название')
+
+    def __str__(self):
+        return str(self.id)
+
+
+    @attribute(head='Название')
     def name(self):
         return self.__name.strip()
 
@@ -32,8 +35,10 @@ class abstract_referance(ABC):
         return self.__error
 
 
-    @property
-    @header
+    @attribute(head='id')
     def id(self):
         return self.__id
+
+
+    
     
