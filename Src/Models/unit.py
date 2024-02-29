@@ -59,6 +59,10 @@ class unit_model(abstract_referance):
         self.__coef = coef
 
 
+    def __str__(self):
+        return self.name
+
+
     @property
     def to_base(self):
         if hasattr(self.base, 'base'):

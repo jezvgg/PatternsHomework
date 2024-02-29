@@ -4,7 +4,7 @@ from Utils import typecheck
 
 class report_csv(report):
 
-    @typecheck
+    @typecheck(expression=lambda x: x['storage_key'])
     def create(self, storage_key: str):
         result = []
         headers = self._storage.data[storage_key][0].get_attr_keys('head')

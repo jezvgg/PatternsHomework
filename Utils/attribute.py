@@ -5,7 +5,6 @@ class attribute(property):
     def __init__(self, func = None, *args, **kwargs,):
         
         for attr in kwargs.keys():
-            print(attr, kwargs[attr])
             setattr(self, attr, kwargs[attr])
 
         if func is not None:

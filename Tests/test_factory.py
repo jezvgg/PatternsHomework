@@ -23,7 +23,7 @@ class test_factory(unittest.TestCase):
 
     def test_factory_create(self):
         manager = settings_manager()
-        factory = start_factory(manager.settings)
+        factory = start_factory(options=manager.settings)
         
         result = factory.create()
 

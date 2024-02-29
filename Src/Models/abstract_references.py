@@ -10,6 +10,7 @@ class abstract_referance(ABC, AttrWorker):
     __error: error_proxy = error_proxy()
 
 
+    @typecheck
     def __init__(self, name: str = None):
         self.name = name
         self.__id = str(uuid.uuid4())
@@ -35,7 +36,7 @@ class abstract_referance(ABC, AttrWorker):
         return self.__error
 
 
-    @attribute(head='id')
+    @attribute(head='Код')
     def id(self):
         return self.__id
 

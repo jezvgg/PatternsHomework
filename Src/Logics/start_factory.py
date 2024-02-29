@@ -1,6 +1,7 @@
 from Src.Models import *
 from Src.settings import Settings
 from Src.Storage.storage import storage
+from Utils import typecheck
 
 
 class start_factory:
@@ -8,7 +9,8 @@ class start_factory:
     __storage: storage = None
 
 
-    def __init__(self, options: Settings, storage_: storage = None) -> None:
+    @typecheck
+    def __init__(self, options: Settings, storage_: storage | None = None) -> None:
         self.__options = options
         self.__storage = storage_
         self.__build()
