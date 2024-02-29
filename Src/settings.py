@@ -11,6 +11,7 @@ class Settings:
     __BIK = 0
     __type = ""
     __first_start = True
+    __rep_format = ''
 
 
     @property
@@ -109,3 +110,13 @@ class Settings:
     def is_first_start(self, value: bool):
         self.__first_start = value
 
+
+    @property
+    def report_format(self):
+        return self.__rep_format
+
+
+    @report_format.setter
+    @typecheck
+    def report_format(self, value: str):
+        self.__rep_format = value

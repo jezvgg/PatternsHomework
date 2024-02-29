@@ -1,5 +1,5 @@
 from Src.Models import abstract_referance, nomen_group_model, unit_model
-from Utils.typecheck import typecheck
+from Utils import attribute, typecheck
 
 
 class nomen_model(abstract_referance):
@@ -19,16 +19,16 @@ class nomen_model(abstract_referance):
         self.__group = group
 
 
-    @property
+    @attribute(head='Полное имя')
     def full_name(self):
         return self.__full_name
 
 
-    @property
+    @attribute(head='Группа номенкулатуры')
     def group(self):
         return self.__group
 
 
-    @property
+    @attribute(head='Единицы измерения')
     def units(self):
         return self.__units

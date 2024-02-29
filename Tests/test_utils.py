@@ -2,7 +2,7 @@ import unittest
 from Utils.typecheck import typecheck
 from Utils.instance import instance_checker
 from Src.exeptions import argument_exception
-from typing import List
+from Src.Models import *
 
 class test_utils(unittest.TestCase):
 
@@ -49,3 +49,19 @@ class test_utils(unittest.TestCase):
         assert instance_checker([1,2,3], list) == True
         assert instance_checker([1,2,3], list[int]) == True
         assert instance_checker([1, 'a', 3], list[int]) == False
+
+    def test_attrworker_getattrs(self):
+        gramm = unit_model.create_gramm()
+        assert gramm.getattrs() == {'head'}
+
+    def test_attrworker_getattrsnames(self):
+        gramm = unit_model.create_gramm()
+        assert gramm.get_by_attr('head') is not None
+
+    def test_attrworker_getattrsvalues(self):
+        gramm = unit_model.create_gramm()
+        assert gramm.get_attr_values('head') is not None
+
+    def test_attrworker_getattrskeys(self):
+        gramm = unit_model.create_gramm()
+        assert gramm.get_attr_keys('head') is not None

@@ -1,6 +1,7 @@
 from Src.Models import *
 from Src.settings import Settings
 from Src.Storage.storage import storage
+from Utils import typecheck
 
 
 class start_factory:
@@ -8,7 +9,8 @@ class start_factory:
     __storage: storage = None
 
 
-    def __init__(self, options: Settings, storage_: storage = None) -> None:
+    @typecheck
+    def __init__(self, options: Settings, storage_: storage | None = None) -> None:
         self.__options = options
         self.__storage = storage_
         self.__build()
@@ -23,10 +25,10 @@ class start_factory:
 
         nomens = start_factory.create_nomenculature()
         recepts = start_factory.create_recipets()
-        self.__storage.data[storage.nomenculature_key] = nomens
-        self.__storage.data[storage.unit_key] = list(set([x.units for x in nomens]))
-        self.__storage.data[storage.group_key] = list(set([x.group for x in nomens]))
-        self.__storage.data[storage.recipe_key] = recepts
+        self.__storage.data[storage.nomenculature_key()] = nomens
+        self.__storage.data[storage.unit_key()] = list(set([x.units for x in nomens]))
+        self.__storage.data[storage.group_key()] = list(set([x.group for x in nomens]))
+        self.__storage.data[storage.recipe_key()] = recepts
 
 
     @property

@@ -34,7 +34,7 @@ def typecheck(_func = None, expression = lambda x: True):
                 
             if expression and not expression(var):
                 raise argument_exception("Передаваемые аргументы не соответсвтуют ограничениям.")
-        
+
             return func(*args, **kwargs)
         
         return wrapper
