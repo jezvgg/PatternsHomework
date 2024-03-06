@@ -1,4 +1,6 @@
 from Src.Logics.report_csv import report, report_csv
+from Src.Logics.report_markdown import report_markdown
+from Src.Logics.report_json import report_json
 from Src.exeptions import operation_exception
 from Src.Storage.storage import storage
 from Utils import typecheck
@@ -14,6 +16,8 @@ class report_factory:
 
     def __build_structure(self):
         self.__maps['csv'] = report_csv
+        self.__maps['markdown'] = report_markdown
+        self.__maps['json'] = report_json
 
 
     @typecheck(expression=lambda x: x['storage'])
