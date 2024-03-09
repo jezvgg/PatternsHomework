@@ -1,5 +1,14 @@
-# from Src.Logics.reports.converter.convertor_models import convertor_modelss
-# from Src.Logics.reports.converter.convertor_basic import convertor_basic
-# from Src.Logics.reports.converter.convetor_datetime import convertor_datetime
-# from datetime import datetime
-# from Src.Models import *
+from Src.Logics.reports.converter import *
+from datetime import datetime
+from Src.Models import *
+
+class convert_factory:
+    
+    @staticmethod
+    def create(obj):
+        if isinstance(obj, abstract_referance):
+            return convertor_modelss
+        elif isinstance(obj, datetime):
+            return convertor_datetime
+        else:
+            return convertor_basic

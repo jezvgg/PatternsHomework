@@ -14,6 +14,4 @@ class convertor_basic(convertor):
         except TypeError:
             raise argument_exception("Not standart type to serialize!")
 
-  #      if obj is None: obj = str(obj)
-
         return obj
