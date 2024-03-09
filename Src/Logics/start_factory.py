@@ -10,7 +10,7 @@ class start_factory:
 
 
     @typecheck
-    def __init__(self, options: Settings, storage_: storage | None = None) -> None:
+    def __init__(self, options: Settings, storage_: storage | None = None):
         self.__options = options
         self.__storage = storage_
         self.__build()

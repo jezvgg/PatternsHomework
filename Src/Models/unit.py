@@ -73,7 +73,7 @@ class unit_model(abstract_referance):
 
     @attribute(head='Дата')
     def period(self):
-        return dict(datetime.datetime.now())
+        return datetime.datetime.now()
 
 
     @attribute(head='Базовая единица')

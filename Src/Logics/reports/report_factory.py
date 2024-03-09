@@ -1,6 +1,6 @@
-from Src.Logics.report_csv import report, report_csv
-from Src.Logics.report_markdown import report_markdown
-from Src.Logics.report_json import report_json
+from Src.Logics.reports.report_csv import report, report_csv
+from Src.Logics.reports.report_markdown import report_markdown
+from Src.Logics.reports.report_json import report_json
 from Src.exeptions import operation_exception
 from Src.Storage.storage import storage
 from Utils import typecheck

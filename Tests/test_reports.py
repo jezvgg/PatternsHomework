@@ -1,12 +1,10 @@
 import unittest
-from Src.Logics.report import report
-from Src.Logics.report_csv import report_csv
-from Src.Logics.report_json import report_json
-from Src.Logics.report_markdown import report_markdown
+from Src.Logics.reports import *
 from Src.settings_manager import settings_manager
 from Src.Logics.start_factory import start_factory
 from Src.Storage.storage import storage
-from Src.Logics.report_factory import report_factory
+from Src.Logics.reports.report_factory import report_factory
+import json
 
 
 class test_models(unittest.TestCase):
@@ -42,6 +40,9 @@ class test_models(unittest.TestCase):
         csv = report_json(factory.storage)
 
         print(csv.create(storage.unit_key()))
+
+        with open('/home/jezvcp/Projects/PatternsHomework/Tests/smth.json', 'w', encoding='utf-8') as f:
+            f.write(csv.create(storage.nomenculature_key()))
 
         assert csv.create(storage.unit_key()) != ''
         assert csv.create(storage.nomenculature_key()) != ''

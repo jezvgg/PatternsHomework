@@ -27,7 +27,9 @@ def typecheck(_func = None, expression = lambda x: True):
 
             anot = func.__annotations__
 
-            for key in var.keys():
+            # print(var, anot)
+
+            for key in anot.keys():
                 if anot and key not in anot.keys(): continue
                 if not instance_checker(var[key], anot[key]):
                     raise argument_exception("Несоответсвие типов.")

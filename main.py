@@ -1,5 +1,5 @@
 from flask import Flask
-from Src.Logics.report_factory import report_factory
+from Src.Logics.reports.report_factory import report_factory
 from Src.settings_manager import settings_manager
 from Src.Logics.start_factory import start_factory
 

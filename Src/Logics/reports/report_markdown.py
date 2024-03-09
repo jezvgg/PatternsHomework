@@ -1,4 +1,4 @@
-from Src.Logics.report import report
+from Src.Logics.reports.report import report
 from Utils import typecheck
 
 
