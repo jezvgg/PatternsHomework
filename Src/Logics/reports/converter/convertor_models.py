@@ -2,7 +2,7 @@ from Src.Logics.reports.converter import convertor
 from Src.Models import abstract_referance
 from Utils import typecheck
 
-class convertor_modelss(convertor):
+class convertor_models(convertor):
 
     @staticmethod
     @typecheck

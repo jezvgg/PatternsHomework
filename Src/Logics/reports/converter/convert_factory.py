@@ -7,7 +7,7 @@ class convert_factory:
     @staticmethod
     def create(obj):
         if isinstance(obj, abstract_referance):
-            return convertor_modelss
+            return convertor_models
         elif isinstance(obj, datetime):
             return convertor_datetime
         else:
