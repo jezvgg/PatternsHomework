@@ -27,15 +27,22 @@ def typecheck(_func = None, expression = lambda x: True):
 
             anot = func.__annotations__
 
-            for key in var.keys():
-                if anot and key not in anot.keys(): continue
+            # print(var, anot)
+
+            for key in anot.keys():
+                if (anot and key not in anot.keys()) or key == 'return': continue
                 if not instance_checker(var[key], anot[key]):
                     raise argument_exception("Несоответсвие типов.")
                 
             if expression and not expression(var):
                 raise argument_exception("Передаваемые аргументы не соответсвтуют ограничениям.")
 
-            return func(*args, **kwargs)
+            result = func(*args, **kwargs)
+
+            if 'return' in anot.keys() and not instance_checker(result, anot['return']):
+                raise argument_exception("Несоответсвие типов.")
+
+            return result
         
         return wrapper
     

@@ -6,5 +6,5 @@
     "BIK":123456789,
     "type":"SRUCT",
     "is_first_start": true,
-    "report_format": "csv"
+    "report_format": "json"
 }

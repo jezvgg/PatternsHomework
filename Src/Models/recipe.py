@@ -1,5 +1,5 @@
 from Src.Models.abstract_references import abstract_referance
-from Utils import typecheck
+from Utils import typecheck, attribute
 from Src.Models import *
 
 
@@ -18,12 +18,12 @@ class recipe_row_model(abstract_referance):
         super().__init__(name=f"{self.__nomenculatures.name}, {size} {self.__unit.name}")
 
 
-    @property
+    @attribute(head='Номенкулятура')
     def nomenculature(self):
         return self.__nomenculatures
 
 
-    @property
+    @attribute(head='Объём')
     def size(self):
         return self.__size
 
@@ -34,7 +34,7 @@ class recipe_row_model(abstract_referance):
         self.__size = value
 
     
-    @property
+    @attribute(head='Единицы измерения')
     def unit(self):
         return self.__unit
 
@@ -51,7 +51,12 @@ class recipe_model(abstract_referance):
         super().__init__(name)
 
 
-    @property
+    @attribute(head='Рецепт')
+    def rows(self):
+        return self.__rows
+
+
+    @attribute(head='Описание')
     def description(self):
         return self.__description
 

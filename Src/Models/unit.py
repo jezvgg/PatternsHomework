@@ -1,5 +1,6 @@
 from Src.Models.abstract_references import abstract_referance
 from Utils import attribute
+import datetime
 
 
 class unit_model(abstract_referance):
@@ -68,6 +69,11 @@ class unit_model(abstract_referance):
         if hasattr(self.base, 'base'):
             return unit_model(base=self.base.base, coef=self.base.coef, name=self.base.name)
         return self
+
+
+    @attribute(head='Дата')
+    def period(self):
+        return datetime.datetime.now()
 
 
     @attribute(head='Базовая единица')

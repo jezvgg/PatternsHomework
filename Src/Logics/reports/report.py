@@ -10,9 +10,8 @@ class report(ABC):
     
 
     @typecheck
-    def __init__(self, storage_: storage, settings: Settings):
+    def __init__(self, storage_: storage):
         self._storage = storage_
-        self._settings = settings
 
 
     @abstractmethod
