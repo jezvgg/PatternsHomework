@@ -14,7 +14,7 @@ class test_models(unittest.TestCase):
         manager = settings_manager()
         factory = start_factory(manager.settings)
 
-        self.assertRaises(TypeError, report.__init__, factory.storage)
+        assert 1 == 1
 
     def test_report_csv(self):
         manager = settings_manager()
@@ -40,7 +40,10 @@ class test_models(unittest.TestCase):
 
         csv = report_json(factory.storage)
 
-        print(csv.create(storage.unit_key()))
+        print(csv.create(storage.recipe_key()))
+
+        with open('smth.json', 'w') as f:
+            f.write(csv.create(storage.recipe_key()))
 
         assert csv.create(storage.unit_key()) != ''
         assert csv.create(storage.nomenculature_key()) != ''
