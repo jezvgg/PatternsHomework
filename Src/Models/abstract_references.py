@@ -11,7 +11,7 @@ class abstract_referance(ABC, AttrWorker):
 
 
     @typecheck
-    def __init__(self, name: str = None):
+    def __init__(self, name: str | None = None):
         self.name = name
         self.__id = str(uuid.uuid4())
 

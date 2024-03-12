@@ -1,4 +1,5 @@
 from Src.settings_manager import settings_manager
+from datetime import datetime
 from pathlib import Path
 from Src.Models import *
 import unittest
@@ -92,4 +93,24 @@ class test_models(unittest.TestCase):
 Пеките вафли несколько минут до золотистого цвета. Осторожно откройте вафельницу, она очень горячая! Снимите вафлю лопаткой. Горячая она очень мягкая, как блинчик. Но по мере остывания становится твердой и хрустящей. Такие вафли можно свернуть трубочкой. Но делать это надо сразу же после выпекания, пока она мягкая и горячая, потом у вас ничего не получится, вафля поломается. Приятного аппетита!
             ''')
         assert bool(recept) == True
+
+    def test_storage(self):
+        storage = storage_model(name='Главный склад', adress='ул. Пушкина, д. Колотушкина, 23')
+
+        assert storage is not None
+        assert storage.name == 'Главный склад'
+        assert len(storage.getattrs()) > 0 
+
+    def test_storage_transaction(self):
+        storage = storage_model(name='Главный склад', adress='ул. Пушкина, д. Колотушкина, 23')
+        nomen = nomen_model(name='Яйца', group=nomen_group_model.create_group(), units=unit_model.create_count())
+        counts = 300
+        operations = True
+        period = datetime.now()
+        unit = unit_model.create_count()
+
+        transaction = storage_transaction_model(storage=storage, nomen=nomen, operation=operations,
+                                                countes=counts, unit=unit, period=period)
+
+        assert transaction is not None
 

@@ -22,6 +22,11 @@ class storage:
 
 
     @staticmethod
+    def journal_key():
+        return 'journal'
+
+
+    @staticmethod
     def group_key():
         '''
             Список номенкулатурных групп
