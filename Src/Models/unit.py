@@ -66,9 +66,11 @@ class unit_model(abstract_referance):
 
     @property
     def to_base(self):
-        if hasattr(self.base, 'base'):
-            return unit_model(base=self.base.base, coef=self.base.coef, name=self.base.name)
-        return self
+        if self.base is None: return self
+        base = self.base
+        if base and base.base:
+            base =  base.base
+        return base
 
 
     @attribute(head='Дата')

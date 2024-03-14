@@ -27,6 +27,11 @@ class storage:
 
 
     @staticmethod
+    def process_turn_key():
+        return 'turns'
+
+
+    @staticmethod
     def group_key():
         '''
             Список номенкулатурных групп

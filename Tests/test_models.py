@@ -27,7 +27,7 @@ class test_models(unittest.TestCase):
         bite = unit_model(name='bite', base=bit, coef=8)
         kilobite = unit_model(name='kilobite', base=bite, coef=1024)
 
-        assert kilobite.to_base.to_base.name == 'bit'
+        assert kilobite.to_base.name == 'bit'
 
     def test_organizations(self):
         manager = settings_manager()

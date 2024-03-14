@@ -1,7 +1,7 @@
 from Src.Models import abstract_referance
-from Src.Models import *
 from Utils import typecheck, attribute
 from datetime import datetime
+from Src.Models import *
 
 
 class storage_transaction_model(abstract_referance):
@@ -16,7 +16,7 @@ class storage_transaction_model(abstract_referance):
     @typecheck
     def __init__(self, storage: storage_model, 
                 nomen: nomen_model, operation: bool, countes: int, 
-                unit: unit_model, period: datetime,  name: str | None = None):
+                unit: unit_model, period: datetime,  name: str = ''):
         super().__init__(name)
         self.__storage = storage
         self.__nomen = nomen
@@ -42,7 +42,7 @@ class storage_transaction_model(abstract_referance):
 
 
     @attribute(head='Номенкулатура')
-    def nomenculature(self):
+    def nomenculature(self) -> nomen_model:
         return self.__nomen
 
 
