@@ -21,5 +21,5 @@ class process_factory:
         if format not in self.__maps.keys():
             raise operation_exception("Нет подходящего обработчика")
 
-        return self.__maps[format](journal=storage_.data[storage.journal_key()])
+        return self.__maps[format]
         

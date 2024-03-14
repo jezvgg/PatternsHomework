@@ -13,9 +13,9 @@ class test_processes(unittest.TestCase):
         start.create()
 
         process = process_factory().create(format=storage.process_turn_key(), storage_=start.storage)
-        result = process.create()
+        result = process.create(start.storage.data[storage.journal_key()])
 
-        for turn in process.create():
+        for turn in result:
             print(f"Со склада {turn.storage.name} оборот {turn.nomen.name} равняется {turn.remains} {turn.unit.name}")
 
         assert result is not None
