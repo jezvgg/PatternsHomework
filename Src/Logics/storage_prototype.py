@@ -1,6 +1,7 @@
 from Utils import typecheck
-from datetime import datetime
-from Src.Models import storage_transaction_model
+from functools import singledispatch
+from Src.exeptions import operation_exception
+from Src.Models import storage_transaction_model, period, nomen_model
 
 
 class storage_prototype:
@@ -12,17 +13,31 @@ class storage_prototype:
         self.__data = data
 
 
-    @typecheck(expression=lambda x: x['start_period'] <= x['stop_period'])
-    def filter(self, start_period: datetime, stop_period: datetime):
+    @singledispatch
+    def filter_by(self, filter_model):
+        raise operation_exception(f"Нет фильтрации такого способа: {filter_model}")
+
+
+    @filter_by.register
+    def filter(self, filter_model: period):
         result = []
         for item in self.data:
-            if item.period > start_period and item.period <= stop_period:
+            if item.period > filter_model.start and item.period <= filter_model.end:
                 result.append(item)
 
         return storage_prototype(result)
 
 
+    @filter_by.register
+    def filter(self, filter_model: nomen_model):
+        result = []
+        for item in self.data:
+            if item.nomenculature.name != filter_model.name: continue
+            result.append(item)
+        return storage_prototype(result)
+
+
     @property
-    def data(self) -> list:
+    def data(self) -> list[storage_transaction_model]:
         return self.__data
 

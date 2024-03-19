@@ -21,7 +21,7 @@ class abstract_referance(ABC, AttrWorker):
 
 
     def __repr__(self):
-        return self.__str__()
+        return f"{type(self).__name__}({', '.join([f'{key}={value}' for key, value in self.get_by_attr('head').items()])})"
 
     
     def __hash__(self) -> int:
