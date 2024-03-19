@@ -10,6 +10,6 @@ class convertor_basic(convertor):
         try:
             json.dumps(obj)
         except TypeError:
-            raise argument_exception("Not standart type to serialize!")
+            raise argument_exception(f"{obj} - Not standart type to serialize!")
 
         return obj

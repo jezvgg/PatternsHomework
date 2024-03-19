@@ -7,6 +7,5 @@ class abstract_process(ABC):
     operations = {True: 1, False: -1}
 
     @abstractmethod
-    @classmethod
     def create(cls, journal: list[storage_transaction_model]):
         pass

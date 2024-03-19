@@ -27,8 +27,6 @@ def typecheck(_func = None, expression = lambda x: True):
 
             anot = func.__annotations__
 
-            # print(var, anot)
-
             for key in anot.keys():
                 if (anot and key not in anot.keys()) or key == 'return': continue
                 if not instance_checker(var[key], anot[key]):
