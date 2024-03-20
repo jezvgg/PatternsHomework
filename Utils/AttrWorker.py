@@ -3,11 +3,13 @@ from Utils.attribute import attribute
 
 class AttrWorker:
 
-    def getattrs(self) -> tuple:
+    @classmethod
+    def getattrs(cls, obj_type=None) -> tuple:
+        if obj_type is None: obj_type = cls
         attributes = set([])
-        for method in dir(type(self)):
-            if isinstance(getattr(type(self), method), attribute):
-                attributes |= set(dir(getattr(type(self), method))) ^ set(dir(attribute))
+        for method in dir(obj_type):
+            if isinstance(getattr(obj_type, method), attribute):
+                attributes |= set(dir(getattr(obj_type, method))) ^ set(dir(attribute))
         return attributes
 
     def get_by_attr(self, attr: str) -> dict:

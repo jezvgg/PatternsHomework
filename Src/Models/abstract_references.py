@@ -11,13 +11,21 @@ class abstract_referance(ABC, AttrWorker):
 
 
     @typecheck
-    def __init__(self, name: str = None):
+    def __init__(self, name: str = ''):
         self.name = name
         self.__id = str(uuid.uuid4())
 
 
     def __str__(self):
         return str(self.id)
+
+
+    def __repr__(self):
+        return f"{type(self).__name__}({', '.join([f'{key}={value}' for key, value in self.get_by_attr('head').items()])})"
+
+    
+    def __hash__(self) -> int:
+        return hash(self.name)
 
 
     @attribute(head='Название')
