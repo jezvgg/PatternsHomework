@@ -1,5 +1,5 @@
 from Utils import typecheck
-from functools import singledispatch
+from functools import singledispatchmethod
 from Src.exeptions import operation_exception
 from Src.Models import storage_transaction_model, period, nomen_model
 
@@ -13,13 +13,13 @@ class storage_prototype:
         self.__data = data
 
 
-    @singledispatch
+    @singledispatchmethod
     def filter_by(self, filter_model):
-        raise operation_exception(f"Нет фильтрации такого способа: {filter_model}")
+        raise operation_exception(f"Нет фильтрации такого способа: {type(filter_model)}")
 
 
     @filter_by.register
-    def filter(self, filter_model: period):
+    def filter_by_period(self, filter_model: period):
         result = []
         for item in self.data:
             if item.period > filter_model.start and item.period <= filter_model.end:
@@ -29,7 +29,7 @@ class storage_prototype:
 
 
     @filter_by.register
-    def filter(self, filter_model: nomen_model):
+    def filter_by_nomen(self, filter_model: nomen_model):
         result = []
         for item in self.data:
             if item.nomenculature.name != filter_model.name: continue
