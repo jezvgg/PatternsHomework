@@ -12,7 +12,7 @@ class test_processes(unittest.TestCase):
         start = start_factory(manager.settings)
         start.create()
 
-        process = process_factory().create(format=storage.process_turn_key(), storage_=start.storage)
+        process = process_factory().create(format=storage.process_turn_key())
         result = process.create(start.storage.data[storage.journal_key()])
 
         for turn in result:

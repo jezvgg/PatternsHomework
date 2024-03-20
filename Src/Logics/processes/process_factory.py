@@ -17,7 +17,7 @@ class process_factory:
 
 
     @typecheck
-    def create(self, format: str, storage_: storage):
+    def create(self, format: str):
         if format not in self.__maps.keys():
             raise operation_exception("Нет подходящего обработчика")
 

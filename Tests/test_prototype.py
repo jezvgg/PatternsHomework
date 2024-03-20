@@ -22,7 +22,7 @@ class test_prototype(unittest.TestCase):
         start_date = datetime.strptime("2024-01-01", '%Y-%m-%d')
         stop_date = datetime.strptime("2024-01-10", '%Y-%m-%d')
 
-        result = prototype.filter( period(start_date, stop_date) )
+        result = prototype.filter_by( period(start_date, stop_date) )
 
         print(result.data)
         assert isinstance(result, storage_prototype)
@@ -40,7 +40,7 @@ class test_prototype(unittest.TestCase):
 
         nomen = nomen_model(name='Сливочное масло', group=nomen_group_model.create_group(), units=unit_model.create_gramm())
 
-        result = prototype.filter( nomen )
+        result = prototype.filter_by( nomen )
 
         print(result.data)
         assert isinstance(result, storage_prototype)
