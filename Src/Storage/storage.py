@@ -22,6 +22,11 @@ class storage:
 
 
     @staticmethod
+    def storages_key():
+        return 'storages_key'
+
+
+    @staticmethod
     def journal_key():
         return 'journal'
 

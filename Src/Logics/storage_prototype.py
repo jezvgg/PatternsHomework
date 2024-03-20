@@ -1,7 +1,7 @@
 from Utils import typecheck
 from functools import singledispatchmethod
 from Src.exeptions import operation_exception
-from Src.Models import storage_transaction_model, period, nomen_model
+from Src.Models import *
 
 
 class storage_prototype:
@@ -33,6 +33,25 @@ class storage_prototype:
         result = []
         for item in self.data:
             if item.nomenculature.name != filter_model.name: continue
+            result.append(item)
+        return storage_prototype(result)
+
+
+    @filter_by.register
+    def filter_by_recipe(self, filter_model: recipe_model):
+        recipe_nomens = set([row.nomenculature.name for row in filter_model.rows])
+        result = []
+        for item in self.data:
+            if item.nomenculature.name not in recipe_nomens: continue
+            result.append(item)
+        return storage_prototype(result)
+
+
+    @filter_by.register
+    def filter_by_recipe(self, filter_model: storage_model):
+        result = []
+        for item in self.data:
+            if item.storage.name != filter_model.name: continue
             result.append(item)
         return storage_prototype(result)
 

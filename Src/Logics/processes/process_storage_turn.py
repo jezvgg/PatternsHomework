@@ -7,7 +7,7 @@ class process_storage_turn(abstract_process):
     
     @classmethod
     @typecheck
-    def create(cls, journal: list[storage_transaction_model]):
+    def create(cls, journal: list[storage_transaction_model]) -> list[storage_turn_model]:
         result = {}
         for transaction in journal:
             key = (transaction.nomenculature, transaction.storage, transaction.unit.to_base)

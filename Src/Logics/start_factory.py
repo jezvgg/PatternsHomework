@@ -27,11 +27,14 @@ class start_factory:
         nomens = start_factory.create_nomenculature()
         recepts = start_factory.create_recipets()
         journal = start_factory.create_journal()
+        storages = start_factory.create_storages()
         self.__storage.data[storage.nomenculature_key()] = nomens
         self.__storage.data[storage.unit_key()] = list(set([x.units for x in nomens]))
         self.__storage.data[storage.group_key()] = list(set([x.group for x in nomens]))
         self.__storage.data[storage.recipe_key()] = recepts
         self.__storage.data[storage.journal_key()] = journal
+        self.__storage.data[storage.storages_key()] = storages
+
 
 
     @property
@@ -133,6 +136,8 @@ class start_factory:
         nomen1 = nomen_model(name='Яйца', group=nomen_group, units=unit)
         nomen2 = nomen_model(name='Сахар', group=nomen_group, units=kilogram)
         nomen3 = nomen_model(name='Сливочное масло', group=nomen_group, units=gramm)
+        nomen4 = nomen_model(name='Пшеничная мука', group=nomen_group, units=kilogram)
+        nomen5 = nomen_model(name='Ванилин', group=nomen_group, units=gramm)
 
         return [
             storage_transaction_model(storage=storage, nomen=nomen1, operation=True,
@@ -182,5 +187,16 @@ class start_factory:
             storage_transaction_model(storage=storage, nomen=nomen3, operation=True,
                                                 countes=23000, unit=gramm, period=datetime.now()),
             storage_transaction_model(storage=storage, nomen=nomen3, operation=False,
-                                                countes=23000, unit=gramm, period=datetime.now())
+                                                countes=23000, unit=gramm, period=datetime.now()),
+            storage_transaction_model(storage=storage, nomen=nomen4, operation=True,
+                                                countes=23000, unit=gramm, period=datetime.now()),
+            storage_transaction_model(storage=storage, nomen=nomen3, operation=True,
+                                                countes=100, unit=gramm, period=datetime.now())                               
         ]
+
+
+    @staticmethod
+    def create_storages():
+        storage = storage_model(name='Главный склад', adress='ул. Пушкина, д. Колотушкина, 23')
+        storage2 = storage_model(name='Не главный склад', adress='ул. Не Пушкина, д. Не Колотушкина, не 23')
+        return [storage, storage2]
