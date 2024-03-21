@@ -54,7 +54,12 @@ def get_rests():
 
 @app.route('/api/storage/<nomenculature_id>/turns')
 def get_nomens_rests(nomenculature_id):
-    nomen = [nomen for nomen in start.storage.data[storage.nomenculature_key()] if nomen.id == nomenculature_id][0]
+    nomens = [nomen for nomen in start.storage.data[storage.nomenculature_key()] if nomen.id == nomenculature_id]
+
+    if not nomens:
+        raise operation_exception("Нет подходяших  данных!")
+
+    nomen = nomens[0]
 
     service = storage_service(start.storage.data[storage.journal_key()])
     result = service.create_turns( nomen )
@@ -67,8 +72,14 @@ def debits_recipe(recipe_id):
     if 'storage_id' not in args:
         raise operation_exception("Не указан склад!")
 
-    recipe = [recipe for recipe in start.storage.data[storage.recipe_key()] if recipe.id == recipe_id][0]
-    storage_ = [storage for storage in start.storage.data[storage.storages_key()] if storage.id == args['storage_id']][0]
+    recipes = [recipe for recipe in start.storage.data[storage.recipe_key()] if recipe.id == recipe_id]
+    storages_ = [storage for storage in start.storage.data[storage.storages_key()] if storage.id == args['storage_id']]
+
+    if not recipes or not storages_:
+        raise operation_exception("Нет подходяших  данных!")
+
+    recipe = recipes[0]
+    storage_ = storages_[0]
 
     start.storage.data[storage.journal_key()] += storage_service(start.storage.data[storage.journal_key()]).create_debits(recipe, storage_)
 
