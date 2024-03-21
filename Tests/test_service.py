@@ -39,7 +39,7 @@ class test_models(unittest.TestCase):
         assert len(result) != 0
 
 
-    def test_recipe_debits(self):
+    def test_recipe_turns(self):
         options = settings_manager()
         start = start_factory(options.settings)
         start.create()
@@ -49,6 +49,21 @@ class test_models(unittest.TestCase):
 
         service = storage_service(start.storage.data[storage.journal_key()])
         result = service.create_turns( recipe , storage=storage_)
+
+        assert result is not None
+        assert len(result) != 0
+
+
+    def test_recipe_devits(self):
+        options = settings_manager()
+        start = start_factory(options.settings)
+        start.create()
+
+        recipe = start.storage.data[storage.recipe_key()][0]
+        storage_ = start.storage.data[storage.storages_key()][0]
+
+        service = storage_service(start.storage.data[storage.journal_key()])
+        result = service.create_debits( recipe , storage_)
 
         assert result is not None
         assert len(result) != 0
