@@ -5,6 +5,7 @@ from Src.Logics.processes import process_factory
 from functools import singledispatchmethod
 from Src.Storage.storage import storage
 from Src.Models import period
+from datetime import datetime
 from Utils import typecheck
 from typing import Union
 from Src.Models import *
@@ -52,7 +53,24 @@ class storage_service:
         rests = processing.create(transactions)
         return rests
 
-    
+
+    def create_debits(self, obj: recipe_model, storage_: storage_model):
+        turns = self.create_turns(obj, storage=storage_)
+
+        recipe_need = {}
+        for recipe_row in obj.rows:
+            recipe_need[recipe_row.nomenculature.name] = recipe_row.size
+
+        transactions = []
+        for turn in turns:
+            if recipe_need[turn.nomen.name] > turn.remains:
+                raise operation_exception('Не удалось произвести списование! Остатков на складе не достаточно!')
+            transactions.append(storage_transaction_model(storage=storage_, nomen=turn.nomen, operation=False, 
+                                                        countes=recipe_need[turn.nomen.name], unit=turn.unit, period=datetime.now()))
+
+        return transactions
+
+        
     @staticmethod
     def create_response(data: list | dict, app):
         data = convert_factory.create(data).convert(data)
