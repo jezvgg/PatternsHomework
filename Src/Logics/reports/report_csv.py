@@ -13,5 +13,8 @@ class report_csv(report):
             result.append(';'.join(map(str, model.get_attr_values('head'))))
         return '\n'.join(result)
 
+    def load(self):
+        pass
+
         
                 

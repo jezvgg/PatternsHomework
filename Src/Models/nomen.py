@@ -20,15 +20,15 @@ class nomen_model(abstract_referance):
 
 
     @attribute(head='Полное имя')
-    def full_name(self):
+    def full_name(self) -> str:
         return self.__full_name
 
 
     @attribute(head='Группа номенкулатуры')
-    def group(self):
+    def group(self) -> nomen_group_model:
         return self.__group
 
 
     @attribute(head='Единицы измерения')
-    def units(self):
+    def units(self) -> unit_model:
         return self.__units

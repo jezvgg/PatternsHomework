@@ -17,3 +17,7 @@ class report(ABC):
     @abstractmethod
     def create(self) -> str:
         pass
+
+    @abstractmethod
+    def load(self) -> dict:
+        pass

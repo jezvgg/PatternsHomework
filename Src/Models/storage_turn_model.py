@@ -21,20 +21,20 @@ class storage_turn_model(abstract_referance):
 
 
     @attribute(head='Склад')
-    def storage(self):
+    def storage(self) -> storage_model:
         return self.__storage
 
 
     @attribute(head='Оборот')
-    def remains(self):
+    def remains(self) -> int:
         return self.__remains
 
 
     @attribute(head='Номенкулятура')
-    def nomen(self):
+    def nomen(self) -> nomen_model:
         return self.__nomen
 
 
     @attribute(head='Единицы измерения')
-    def unit(self):
+    def unit(self) -> unit_model:
         return self.__unit

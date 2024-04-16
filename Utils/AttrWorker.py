@@ -12,17 +12,20 @@ class AttrWorker:
                 attributes |= set(dir(getattr(obj_type, method))) ^ set(dir(attribute))
         return attributes
 
-    def get_by_attr(self, attr: str) -> dict:
+    @classmethod
+    def get_by_attr(cls, attr: str, obj_type: type = None) -> dict:
         result = {}
-        for method in dir(type(self)):
-            if hasattr(getattr(type(self), method), attr):
-                result[getattr(getattr(type(self), method), attr)] = getattr(self, method)
+        for method in dir(cls):
+            if hasattr(getattr(cls, method), attr):
+                result[getattr(getattr(cls, method), attr)] = getattr(cls, method)
         return result
 
-    def get_attr_keys(self, attr: str) -> list:
-        return list(self.get_by_attr(attr).keys())
+    @classmethod
+    def get_attr_keys(cls, attr: str) -> list:
+        return list(cls.get_by_attr(attr).keys())
 
-    def get_attr_values(self, attr: str) -> list:
-        return list(self.get_by_attr(attr).values())
+    @classmethod
+    def get_attr_values(cls, attr: str) -> list:
+        return list(cls.get_by_attr(attr).values())
 
     

@@ -11,16 +11,17 @@ class abstract_referance(ABC, AttrWorker):
 
 
     @typecheck
-    def __init__(self, name: str = ''):
+    def __init__(self, name: str = '', id: str = None):
         self.name = name
         self.__id = str(uuid.uuid4())
+        if id: self.__id = id
 
 
-    def __str__(self):
+    def __str__(self) -> None:
         return str(self.id)
 
 
-    def __repr__(self):
+    def __repr__(self) -> None:
         return f"{type(self).__name__}({', '.join([f'{key}={value}' for key, value in self.get_by_attr('head').items()])})"
 
     
@@ -29,7 +30,7 @@ class abstract_referance(ABC, AttrWorker):
 
 
     @attribute(head='Название')
-    def name(self):
+    def name(self) -> str:
         return self.__name.strip()
 
 
@@ -45,7 +46,7 @@ class abstract_referance(ABC, AttrWorker):
 
 
     @attribute(head='Код')
-    def id(self):
+    def id(self) -> str:
         return self.__id
 
 

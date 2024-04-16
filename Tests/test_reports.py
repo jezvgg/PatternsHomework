@@ -79,3 +79,7 @@ class test_models(unittest.TestCase):
         kilodata = convertor_models.convert(unit_model.create_kilogramm())
 
         assert kilodata is not None
+
+    def test_deconvertor_model(self):
+        result = deconvertor().load('Tests/smth.json', dtype=nomen_model)
+        print(result)

@@ -27,7 +27,7 @@ class storage_transaction_model(abstract_referance):
 
     
     @property
-    def name(self):
+    def name(self) -> str:
         return self.name
 
     
@@ -37,7 +37,7 @@ class storage_transaction_model(abstract_referance):
 
     
     @attribute(head='Склад')
-    def storage(self):
+    def storage(self) -> storage_model:
         return self.__storage
 
 
@@ -47,17 +47,17 @@ class storage_transaction_model(abstract_referance):
 
 
     @attribute(head='Операция')
-    def opearation(self):
+    def opearation(self) -> bool:
         return self.__operation
 
 
     @attribute(head='Количество')
-    def counts(self):
+    def counts(self) -> int:
         return self.__contes
 
 
     @attribute(head='Единицы измерения')
-    def unit(self):
+    def unit(self) -> unit_model:
         return self.__unit
 
 

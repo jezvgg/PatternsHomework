@@ -19,12 +19,12 @@ class recipe_row_model(abstract_referance):
 
 
     @attribute(head='Номенкулятура')
-    def nomenculature(self):
+    def nomenculature(self) -> nomen_model:
         return self.__nomenculatures
 
 
     @attribute(head='Объём')
-    def size(self):
+    def size(self) -> int:
         return self.__size
 
 
@@ -35,7 +35,7 @@ class recipe_row_model(abstract_referance):
 
     
     @attribute(head='Единицы измерения')
-    def unit(self):
+    def unit(self) -> unit_model:
         return self.__unit
 
 
@@ -52,12 +52,12 @@ class recipe_model(abstract_referance):
 
 
     @attribute(head='Рецепт')
-    def rows(self):
+    def rows(self) -> list[recipe_row_model]:
         return self.__rows
 
 
     @attribute(head='Описание')
-    def description(self):
+    def description(self) -> str:
         return self.__description
 
 

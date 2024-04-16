@@ -7,7 +7,6 @@ from Src.Storage.storage import storage
 from Src.Models import period
 from datetime import datetime
 from Utils import typecheck
-from typing import Union
 from Src.Models import *
 import json
 

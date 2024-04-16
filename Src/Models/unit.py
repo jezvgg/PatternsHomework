@@ -1,3 +1,4 @@
+from __future__ import annotations
 from Src.Models.abstract_references import abstract_referance
 from Utils import attribute
 import datetime
@@ -74,15 +75,15 @@ class unit_model(abstract_referance):
 
 
     @attribute(head='Дата')
-    def period(self):
+    def period(self) -> datetime.datetime:
         return datetime.datetime.now()
 
 
     @attribute(head='Базовая единица')
-    def base(self):
+    def base(self) -> unit_model:
         return self.__base
 
 
     @attribute(head='Коэффицент')
-    def coef(self):
+    def coef(self) -> int:
         return self.__coef

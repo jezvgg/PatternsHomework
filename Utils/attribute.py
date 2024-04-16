@@ -1,3 +1,4 @@
+from functools import wraps
 
 
 class attribute(property):

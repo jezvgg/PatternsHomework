@@ -12,3 +12,8 @@ class report_json(report):
         for model in self._storage.data[storage_key]:
             result.append({str(key):convert_factory.create(value).convert(value) for key, value in model.get_by_attr('head').items()})
         return json.dumps(result, indent=4, ensure_ascii=False)
+
+
+    def load(self, data: dict, dtype: type):
+        pass
+        

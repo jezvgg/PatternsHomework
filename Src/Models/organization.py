@@ -22,20 +22,20 @@ class organization_model(abstract_referance):
 
 
     @property
-    def INN(self):
+    def INN(self) -> str:
         return self._INN
 
 
     @property
-    def BIK(self):
+    def BIK(self) -> str:
         return self._BIK
 
 
     @property
-    def account(self):
+    def account(self) -> str:
         return self._account
 
 
     @property
-    def type(self):
+    def type(self) -> str:
         return self._type
