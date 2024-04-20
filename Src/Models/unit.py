@@ -1,4 +1,3 @@
-from __future__ import annotations
 from Src.Models.abstract_references import abstract_referance
 from Utils import attribute
 import datetime
@@ -10,6 +9,7 @@ class unit_model(abstract_referance):
     '''
     __base = None
     __coef: int
+    __period: datetime.datetime
 
 
     @staticmethod
@@ -55,10 +55,11 @@ class unit_model(abstract_referance):
         return unit_model(name='литры', base=unit_model.create_milolitres(), coef=1000)
 
 
-    def __init__(self, base = None, coef: int = 0, *args, **kwargs):
+    def __init__(self, base = None, coef: int = 0, period: datetime.datetime = datetime.datetime.now(), *args, **kwargs):
         super().__init__(*args, **kwargs)
         if base: self.__base = base
         self.__coef = coef
+        self.__period = period
 
 
     def __str__(self):
@@ -76,11 +77,11 @@ class unit_model(abstract_referance):
 
     @attribute(head='Дата')
     def period(self) -> datetime.datetime:
-        return datetime.datetime.now()
+        return self.__period
 
 
     @attribute(head='Базовая единица')
-    def base(self) -> unit_model:
+    def base(self) -> "unit_model":
         return self.__base
 
 

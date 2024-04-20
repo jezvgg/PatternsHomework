@@ -11,10 +11,9 @@ class abstract_referance(ABC, AttrWorker):
 
 
     @typecheck
-    def __init__(self, name: str = '', id: str = None):
+    def __init__(self, name: str = '', id: str = str(uuid.uuid4())):
         self.name = name
-        self.__id = str(uuid.uuid4())
-        if id: self.__id = id
+        self.__id = id
 
 
     def __str__(self) -> None:
@@ -36,7 +35,7 @@ class abstract_referance(ABC, AttrWorker):
 
     @name.setter
     @typecheck
-    def name(self, value: str):
+    def name(self, value: str, id: str = ''):
         self.__name = value.strip()
 
 

@@ -82,4 +82,4 @@ class test_models(unittest.TestCase):
 
     def test_deconvertor_model(self):
         result = deconvertor().load('Tests/smth.json', dtype=nomen_model)
-        print(result)
+        print('\n\n',repr(result))

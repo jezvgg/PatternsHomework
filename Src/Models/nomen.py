@@ -8,6 +8,13 @@ class nomen_model(abstract_referance):
     __units = None
 
 
+    @staticmethod
+    def load(json: dict) -> None:
+        obj = nomen_model(json['Название'], json['Группа номенкулатуры'], json['Единицы измерения'])
+        
+        return obj
+
+
     @typecheck(expression = lambda x: len(x['full_name']) < 256)
     def __init__(self, name: str, group: nomen_group_model, units: unit_model, full_name: str = '', *args, **kwargs):
         super().__init__(name, *args, **kwargs)
