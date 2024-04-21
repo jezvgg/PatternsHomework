@@ -36,11 +36,13 @@ class storage_service:
 
     @create_turns.register
     def _(self, obj: nomen_model, **kwargs):
+        storage_ = None
         prototype = storage_prototype( self.__data )
-        transactions = prototype.filter_by( obj ).data
+        transactions = prototype.filter_by( obj )
+        if 'storage' in kwargs.keys() and kwargs['storage']: 
+            transactions = transactions.filter_by( kwargs['storage'] )
         processing = process_factory().create(storage.process_turn_key())
-        rests = processing.create(transactions)
-        return rests
+        return processing.create(transactions.data)
 
 
     @create_turns.register

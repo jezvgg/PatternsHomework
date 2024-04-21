@@ -48,7 +48,7 @@ class storage_prototype:
 
 
     @filter_by.register
-    def filter_by_recipe(self, filter_model: storage_model):
+    def filter_by_storage(self, filter_model: storage_model):
         result = []
         for item in self.data:
             if item.storage.name != filter_model.name: continue

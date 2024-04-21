@@ -15,6 +15,7 @@ app = Flask(__name__)
 options = settings_manager()
 start = start_factory(options.settings)
 start.create()
+print(start.storage.data[storage.nomenculature_key()][0].id)
 
 
 @app.route('/api/report/<storage_key>', methods=['GET'])
@@ -84,6 +85,24 @@ def debits_recipe(recipe_id):
     start.storage.data[storage.journal_key()] += storage_service(start.storage.data[storage.journal_key()]).create_debits(recipe, storage_)
 
     return storage_service.create_response({'success': True}, app)
+
+@app.route('/api/storage/<nomenculature_id>/list', methods=['GET'])
+def get_nomens_list(nomenculature_id):
+    nomens = [nomen for nomen in start.storage.data[storage.nomenculature_key()] if nomen.id == nomenculature_id]
+
+    args = request.args
+    storage_ = None
+    if 'storage' in args.keys() and args['storage']: storage_ = args['storage']
+
+    if not nomens:
+        raise operation_exception("Нет подходяших  данных!")
+
+    nomen = nomens[0]
+
+    service = storage_service(start.storage.data[storage.journal_key()])
+    result = service.create_turns( nomen, storage=storage_ )
+
+    return storage_service.create_response(result, app)
 
 
 if __name__ == "__main__":
