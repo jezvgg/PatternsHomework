@@ -91,4 +91,7 @@ class test_models(unittest.TestCase):
         result = deconvertor().load('Tests/recipe.json', dtype=recipe_model)
         assert isinstance(result, recipe_model) == True
         print('recipe done')
+        result = deconvertor().load('Tests/settings2.json', dtype=Settings)
+        assert isinstance(result, Settings) == True
+        print('recipe done')
 

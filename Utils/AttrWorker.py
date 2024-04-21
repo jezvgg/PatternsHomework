@@ -13,10 +13,12 @@ class AttrWorker:
         return attributes
 
     def get_by_attr(self, attr: str, obj_type: type = None) -> dict:
+        cls = self
+        if not isinstance(self, type): cls = type(self)
         result = {}
-        for method in dir(self):
-            if hasattr(getattr(self, method), attr):
-                result[getattr(getattr(self, method), attr)] = getattr(self, method)
+        for method in dir(cls):
+            if hasattr(getattr(cls, method), attr):
+                result[getattr(getattr(cls, method), attr)] = getattr(self, method)
         return result
 
     def get_attr_keys(self, attr: str) -> list:

@@ -1,8 +1,8 @@
-from Utils import typecheck
+from Utils import typecheck, attribute, AttrWorker
 from datetime import datetime
 
 
-class Settings:
+class Settings(AttrWorker):
     '''
     Класс хранения настроек.
     '''
@@ -14,10 +14,24 @@ class Settings:
     __type = ""
     __first_start = True
     __rep_format = ''
-    __block_period = datetime.now()
+    __block_period = None
 
 
-    @property
+    def __init__(self, first_name: str = '', INN: str = '', account: int = 0, 
+                correspondent_account: int = 0, BIK: str = '', type: str = '',
+                is_first_start: bool = False, report_format: str = '', block_period: datetime = datetime.now()):
+        self.__firstname = first_name
+        self.__INN = INN
+        self.__account = account
+        self.__corr_account = correspondent_account
+        self.__BIK = BIK
+        self.__first_start = is_first_start
+        self.__rep_format = report_format
+        self.__block_period = block_period
+        self.__type = type
+
+
+    @attribute(head='Наименование')
     def first_name(self) -> str:
         return self.__firstname
 
@@ -31,7 +45,7 @@ class Settings:
         self.__firstname = value.strip()
 
 
-    @property
+    @attribute(head='ИНН')
     def INN(self) -> int:
         return self.__INN
 
@@ -45,8 +59,8 @@ class Settings:
         self.__INN = value
 
 
-    @property
-    def account(self):
+    @attribute(head='Счёт')
+    def account(self) -> int:
         return self.__account
 
 
@@ -59,8 +73,8 @@ class Settings:
         self.__account = value
 
 
-    @property
-    def correspondent_account(self):
+    @attribute(head='Корреспонденский счёт')
+    def correspondent_account(self) -> int:
         return self.__corr_account
 
 
@@ -73,8 +87,8 @@ class Settings:
         self.__corr_account = value
 
 
-    @property
-    def BIK(self):
+    @attribute(head='БИК')
+    def BIK(self) -> str:
         return self.__BIK
 
 
@@ -87,8 +101,8 @@ class Settings:
         self.__BIK = value
 
 
-    @property
-    def type(self):
+    @attribute(head='Вид собственности')
+    def type(self) -> str:
         return self.__type
 
 
@@ -103,8 +117,8 @@ class Settings:
         self.__type = value.strip()
 
 
-    @property
-    def is_first_start(self):
+    @attribute(head='Первый запуск')
+    def is_first_start(self) -> bool:
         return self.__first_start
 
 
@@ -114,8 +128,8 @@ class Settings:
         self.__first_start = value
 
 
-    @property
-    def report_format(self):
+    @attribute(head='Тип выгрузки')
+    def report_format(self) -> str:
         return self.__rep_format
 
 
@@ -125,7 +139,7 @@ class Settings:
         self.__rep_format = value
 
 
-    @property
+    @attribute(head='Дата блокировки')
     def block_period(self) -> datetime:
         return self.__block_period
 
@@ -133,7 +147,4 @@ class Settings:
     @block_period.setter
     @typecheck
     def block_period(self, value: datetime):
-        '''
-        Полное наименование
-        '''
         self.__block_period = value

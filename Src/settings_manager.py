@@ -2,6 +2,8 @@ from pathlib import Path
 from Src.settings import Settings
 from Utils.typecheck import typecheck
 from Src.exeptions import argument_exception, operation_exception
+from Src.Logics.reports.converter import deconvertor, convert_factory
+from Src.Logics.reports.report_json import report_json
 import json
 import uuid
 import os
@@ -19,7 +21,7 @@ class settings_manager(object):
 
     def __init__(self) -> None:
         self.__unique_number = uuid.uuid4()
-        self.__open()
+        self.open('settings.json')
 
 
     def __new__(cls):
@@ -28,49 +30,14 @@ class settings_manager(object):
         return cls.instance
 
 
-    def __convert(self):
-        '''
-        Конвертирует считаные данные из json в объект Settings
-        '''
-        if not len(self.__data):
-            raise argument_exception("Невозможно создать объект типа Settings")
-
-        self.__settings = Settings()
-
-        fields = dir(self.__settings)
-
-        for field in fields:
-            if field not in self.data.keys(): continue
-            setattr(self.__settings, field, self.data[field])
+    def open(self, file_name: str = 'settings.json'):
+        self.__settings = deconvertor().load(file_name, Settings)
 
 
-    def __open(self):
-        settings_file = Path(Path.cwd(), self.__file_name)
-        if not os.path.exists(settings_file):
-            raise operation_exception("Невозможно открыть файл. Он не существует.")
+    def save(self, file_name: str = 'settings2.json') -> None:
+        with open(file_name, 'w') as f:
+            json.dump({str(key):convert_factory.create(value).convert(value) for key, value in self.__settings.get_by_attr('head').items()}, f, ensure_ascii=False, indent=4)
 
-        with open(settings_file) as read_file:
-            self.__data = json.load(read_file)
-
-
-    @typecheck(expression=lambda x: x['file_name'])
-    def open(self, file_name: str) -> bool:
-        '''
-        Открывает файл настроек.
-
-        Args:
-            file_name: str - путь до файла ввиде строки
-        '''
-        self.__file_name = file_name.strip()
-
-        try:
-            self.__open()
-        except Exception as exp:
-            return False, exp
-        
-
-        return True
-    
 
     @property
     def data(self) -> dict:

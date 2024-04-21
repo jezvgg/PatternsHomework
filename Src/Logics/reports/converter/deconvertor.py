@@ -16,7 +16,8 @@ class deconvertor:
         self.convertor_factory = {str: self.deserialize_basic,
                                     int: self.deserialize_basic,
                                     GenericAlias: self.deserialize_list,
-                                    datetime.datetime: self.deserialize_datetime}
+                                    datetime.datetime: self.deserialize_datetime,
+                                    bool: self.deserialize_basic}
 
     @typecheck
     def load(self, src: str, dtype: type):
