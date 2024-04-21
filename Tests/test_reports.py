@@ -4,6 +4,7 @@ from Src.settings_manager import settings_manager
 from Src.Logics.start_factory import start_factory
 from Src.Storage.storage import storage
 from Src.exeptions import argument_exception
+from Src.settings import Settings
 from Src.Models import *
 import datetime
 
@@ -81,5 +82,13 @@ class test_models(unittest.TestCase):
         assert kilodata is not None
 
     def test_deconvertor_model(self):
-        result = deconvertor().load('Tests/smth.json', dtype=nomen_model)
-        print('\n\n',repr(result))
+        result = deconvertor().load('Tests/nomen.json', dtype=nomen_model)
+        assert isinstance(result, nomen_model) == True
+        print('nomen done')
+        result = deconvertor().load('Tests/list_nomens.json', dtype=list[nomen_model])
+        assert isinstance(result, list) == True
+        print('list nomens done')
+        result = deconvertor().load('Tests/recipe.json', dtype=recipe_model)
+        assert isinstance(result, recipe_model) == True
+        print('recipe done')
+

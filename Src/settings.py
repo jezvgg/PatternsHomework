@@ -1,4 +1,6 @@
-from Utils.typecheck import typecheck
+from Utils import typecheck
+from datetime import datetime
+
 
 class Settings:
     '''
@@ -12,6 +14,7 @@ class Settings:
     __type = ""
     __first_start = True
     __rep_format = ''
+    __block_period = datetime.now()
 
 
     @property
@@ -120,3 +123,17 @@ class Settings:
     @typecheck
     def report_format(self, value: str):
         self.__rep_format = value
+
+
+    @property
+    def block_period(self) -> datetime:
+        return self.__block_period
+
+
+    @block_period.setter
+    @typecheck
+    def block_period(self, value: datetime):
+        '''
+        Полное наименование
+        '''
+        self.__block_period = value

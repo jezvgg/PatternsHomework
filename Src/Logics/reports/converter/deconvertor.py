@@ -2,6 +2,7 @@ import json
 from Src.Models import *
 from Utils import typecheck
 import datetime
+from types import GenericAlias
 
 
 class deconvertor:
@@ -14,7 +15,7 @@ class deconvertor:
     def __init__(self):
         self.convertor_factory = {str: self.deserialize_basic,
                                     int: self.deserialize_basic,
-                                    list: self.deserialize_list,
+                                    GenericAlias: self.deserialize_list,
                                     datetime.datetime: self.deserialize_datetime}
 
     @typecheck
@@ -25,7 +26,9 @@ class deconvertor:
 
 
     def deserialize(self, obj, obj_type: type):
-        if obj_type not in self.convertor_factory.keys():
+        if hasattr(obj_type, '__origin__'):
+            convertor = self.deserialize_list
+        elif obj_type not in self.convertor_factory.keys():
             convertor = self.deserialize_obj
         else: convertor = self.convertor_factory[obj_type]
         return convertor(obj, obj_type)
@@ -39,12 +42,9 @@ class deconvertor:
         if isinstance(obj_type, str): obj_type = eval(obj_type)
         if not obj: return None
         res = {}
-        for key, value in obj_type.get_by_attr('head').items():
-            print('\n\n')
-            print(value.fget.__name__)
-            print(value.fget.__annotations__['return'])
+        for key, value in obj_type.get_by_attr(obj_type, 'head').items():
             res[value.fget.__name__] = self.deserialize(obj[key], value.fget.__annotations__['return'])
-        return obj_type(**{value.fget.__name__:self.deserialize(obj[key], value.fget.__annotations__['return']) for key, value in obj_type.get_by_attr('head').items()})
+        return obj_type(**{value.fget.__name__:self.deserialize(obj[key], value.fget.__annotations__['return']) for key, value in obj_type.get_by_attr(obj_type, 'head').items()})
 
 
     def deserialize_datetime(self, obj: datetime.datetime, obj_type: type):
@@ -52,5 +52,5 @@ class deconvertor:
 
 
     def deserialize_list(self, obj: list, obj_type: type):
-        print('-')
+        return [self.deserialize(objj, obj_type.__args__[0]) for objj in obj]
         

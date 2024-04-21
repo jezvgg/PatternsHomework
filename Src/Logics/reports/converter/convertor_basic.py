@@ -7,6 +7,7 @@ class convertor_basic(convertor):
 
     @staticmethod
     def convert(obj):
+        print(obj)
         try:
             json.dumps(obj)
         except TypeError:

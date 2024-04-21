@@ -17,7 +17,8 @@ class storage_transaction_model(abstract_referance):
     def __init__(self, storage: storage_model, 
                 nomen: nomen_model, operation: bool, countes: int, 
                 unit: unit_model, period: datetime,  name: str = ''):
-        super().__init__(name)
+        super().__init__()
+        self.__name = name
         self.__storage = storage
         self.__nomen = nomen
         self.__operation = operation
@@ -28,7 +29,7 @@ class storage_transaction_model(abstract_referance):
     
     @property
     def name(self) -> str:
-        return self.name
+        return self.__name
 
     
     @name.setter

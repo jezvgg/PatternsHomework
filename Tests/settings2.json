@@ -4,5 +4,7 @@
     "account":11122233344,
     "correspondent_account":11122233345,
     "BIK":123456789,
-    "type":"SRUCT"
+    "type":"SRUCT",
+    "is_first_start": true,
+    "report_format": "json"
 }

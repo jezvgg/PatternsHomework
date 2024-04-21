@@ -1,6 +1,7 @@
 from Src.Models.abstract_references import abstract_referance
 from Utils import typecheck, attribute
 from Src.Models import *
+import uuid
 
 
 class recipe_row_model(abstract_referance):
@@ -10,12 +11,13 @@ class recipe_row_model(abstract_referance):
 
 
     @typecheck
-    def __init__(self, nomenculature: nomen_model, size: int, unit: unit_model):
+    def __init__(self, nomenculature: nomen_model, size: int, unit: unit_model, id: str = str(uuid.uuid4()), name: str = ''):
         self.__nomenculatures = nomenculature
         self.__size = size
         self.__unit = unit
+        if not name: name = f"{self.__nomenculatures.name}, {size} {self.__unit.name}"
 
-        super().__init__(name=f"{self.__nomenculatures.name}, {size} {self.__unit.name}")
+        super().__init__(name=name, id=id)
 
 
     @attribute(head='Номенкулятура')
@@ -40,12 +42,12 @@ class recipe_row_model(abstract_referance):
 
 
 class recipe_model(abstract_referance):
-    __rows: list
+    __rows: list[recipe_row_model]
     __description: str
 
 
     @typecheck
-    def __init__(self, name: str, rows: list[recipe_row_model], description: str = ''):
+    def __init__(self, name: str, rows: list[recipe_row_model], description: str = '', id: str = str(uuid.uuid4())):
         self.__rows = rows
         self.description = description
         super().__init__(name)

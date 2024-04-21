@@ -27,7 +27,7 @@ def typecheck(_func = None, expression = lambda x: True):
 
             anot = func.__annotations__
 
-            print('var:',var, 'anot:',anot)
+            # print('var:',var, 'anot:',anot)
 
             for key in anot.keys():
                 if (anot and key not in anot.keys()) or key == 'return': continue
