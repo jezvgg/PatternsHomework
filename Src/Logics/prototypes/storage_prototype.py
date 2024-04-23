@@ -1,17 +1,10 @@
-from Utils import typecheck
-from functools import singledispatchmethod
+from Src.Logics.prototypes import abstract_prototype
 from Src.exeptions import operation_exception
+from functools import singledispatchmethod
 from Src.Models import *
 
 
-class storage_prototype:
-    __data: list[storage_transaction_model] = []
-
-
-    @typecheck
-    def __init__(self, data: list[storage_transaction_model]):
-        self.__data = data
-
+class storage_prototype(abstract_prototype):
 
     @singledispatchmethod
     def filter_by(self, filter_model):
@@ -54,9 +47,3 @@ class storage_prototype:
             if item.storage.name != filter_model.name: continue
             result.append(item)
         return storage_prototype(result)
-
-
-    @property
-    def data(self) -> list[storage_transaction_model]:
-        return self.__data
-

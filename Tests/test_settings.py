@@ -35,9 +35,9 @@ class test_settings(unittest.TestCase):
         manager.open('settings.json')
         sets = manager.settings
 
-        # Берём все неприватные поля и смотрим заполнены ли они
         print(sets.get_attr_values('head'))
-        assert all(sets.get_attr_values('head')) == True
+        print([setting is not None for setting in sets.get_attr_values('head')])
+        assert all([setting is not None for setting in sets.get_attr_values('head')]) == True
 
 
     def test_menager_saving(self):

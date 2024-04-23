@@ -13,7 +13,6 @@ class settings_manager(object):
     '''
     Класс для управления настройками.
     '''
-    __file_name = 'settings.json'
     __unique_number = 0
     __data = {}
     __settings = None
@@ -34,9 +33,11 @@ class settings_manager(object):
         self.__settings = deconvertor().load(file_name, Settings)
 
 
-    def save(self, file_name: str = 'settings2.json') -> None:
+    def save(self, file_name: str = 'settings.json') -> str:
         with open(file_name, 'w') as f:
-            json.dump({str(key):convert_factory.create(value).convert(value) for key, value in self.__settings.get_by_attr('head').items()}, f, ensure_ascii=False, indent=4)
+            result = json.dumps({str(key):convert_factory.create(value).convert(value) for key, value in self.__settings.get_by_attr('head').items()}, ensure_ascii=False, indent=4)
+            f.write(result)
+        return result
 
 
     @property

@@ -1,4 +1,4 @@
-from Src.Logics.storage_prototype import storage_prototype
+from Src.Logics.prototypes import *
 from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
 from Src.Storage.storage import storage
@@ -44,3 +44,15 @@ class test_prototype(unittest.TestCase):
 
         print(result.data)
         assert isinstance(result, storage_prototype)
+
+    def test_prototype_factory(self):
+        manager = settings_manager()
+        start = start_factory(manager.settings)
+        start.create()
+
+        key = storage.journal_key()
+        data = start.storage.data[key]
+
+        prototype = prototype_factory(data)
+
+        print(prototype)

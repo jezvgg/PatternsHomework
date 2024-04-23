@@ -1,5 +1,5 @@
 from Src.Logics.reports.report_factory import report_factory
-from Src.Logics.storage_service import storage_service
+from Src.Logics.services import storage_service, nomenculature_service
 from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
 from Src.exeptions import operation_exception
@@ -7,7 +7,6 @@ from Src.Storage.storage import storage
 from flask import Flask, request
 from datetime import datetime
 from Src.Models import *
-import json
 
 
 
@@ -17,14 +16,11 @@ start = start_factory(options.settings)
 start.create()
 print(start.storage.data[storage.nomenculature_key()][0].id)
 
-
 @app.route('/api/report/<storage_key>', methods=['GET'])
 def get_report(storage_key: str):
 
-    manager = settings_manager()
-    start = start_factory(manager.settings)
     factory = report_factory()
-    report = factory.create(manager.settings.report_format, start.storage)
+    report = factory.create(options.settings.report_format, start.storage)
 
     if storage_key not in start.storage.data.keys():
         return "Такого ключа нет", 500
@@ -103,6 +99,57 @@ def get_nomens_list(nomenculature_id):
     result = service.create_turns( nomen, storage=storage_ )
 
     return storage_service.create_response(result, app)
+
+
+@app.route('/api/get_nomenculature/<nomen_id>', methods=['GET'])
+def get_nomenculature(nomen_id):
+    nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
+    result = nomen_service.get_nomenculature(nomen_id)
+
+    return nomenculature_service.create_response(result, app)
+
+
+@app.route('/api/del_nomenculature/<nomen_id>', methods=['DELETE'])
+def del_nomenculature(nomen_id):
+    nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
+    result = nomen_service.del_nomenculature(nomen_id)
+
+    return nomenculature_service.create_response(result, app)
+
+
+@app.route('/api/add_nomenculature', methods=['POST'])
+def add_nomenculature():
+    nomen_json = request.json
+    nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
+    result = nomen_service.add_nomenculature(nomen_json)
+
+    return nomenculature_service.create_response(result, app)
+
+
+@app.route('/api/patch_nomenculature/<nomen_id>', methods=['PATCH'])
+def patch_nomenculature(nomen_id):
+    nomen_json = request.json
+
+    nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
+    result = nomen_service.change_nomenculature(nomen_id, nomen_json)
+
+    return nomenculature_service.create_response(result, app)
+
+
+@app.route('/api/change_block_period', methods=['GET'])
+def change_block_period(nomen_id: str):
+
+    args = request.args
+    if 'block_period' in args:
+        options.settings.block_period = datetime.strptime(args['block_period'], '%Y-%m-%d')
+    rern = options.save()
+
+    result = app.response_class(
+            response = rern,
+            status=200,
+            mimetype="application/json; charset=utf-8"
+        )
+    return result
 
 
 if __name__ == "__main__":

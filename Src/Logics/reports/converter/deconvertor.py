@@ -20,7 +20,7 @@ class deconvertor:
                                     bool: self.deserialize_basic}
 
     @typecheck
-    def load(self, src: str, dtype: type):
+    def load(self, src: str, dtype: type | GenericAlias):
         with open(src) as f:
             res = json.load(f)
         return self.deserialize(res, dtype)

@@ -43,7 +43,6 @@ class start_factory:
 
 
     def create(self) -> list:
-        if not self.__options.is_first_start: return []
         if not self.__storage: self.__build()
 
         self.__options.is_first_start = False
