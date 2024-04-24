@@ -6,11 +6,8 @@ from types import GenericAlias
 
 
 class deconvertor:
-    '''
-    Писать общий deconvertor для текущего кода - хуйня идея
-    '''
-
     convertor_factory: dict
+
 
     def __init__(self):
         self.convertor_factory = {str: self.deserialize_basic,
