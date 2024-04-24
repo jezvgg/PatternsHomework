@@ -11,6 +11,12 @@ from Src.Models import *
 
 class storage_service(abstract_service):
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._events[event_type.change_block_period()] = self.create_blocked_turns
+
+
     @singledispatchmethod
     def create_turns(self, obj, **kwargs):
         raise operation_exception(f"Нет сервиса для {type(obj)}.")
@@ -46,11 +52,13 @@ class storage_service(abstract_service):
         return rests
 
 
-    def create_blocked_turns(self, stop_period):
+    def create_blocked_turns(self):
         
-        turn_period = period(datetime.strptime('1900-01-01', '%Y-%m-%d'), stop_period)
+        turn_period = period(datetime.strptime('1900-01-01', '%Y-%m-%d'), self._manager.settings.block_period)
+        
+        self._storage.data[storage.turns_key()] = self.create_turns(turn_period)
 
-        return self.create_turns(turn_period)
+        return True
 
 
     def create_debits(self, obj: recipe_model, storage_: storage_model):

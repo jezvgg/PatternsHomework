@@ -2,6 +2,7 @@ from Src.Models import *
 from Src.settings import Settings
 from Src.Storage.storage import storage
 from Src.Logics.services import storage_service
+from Src.Logics.observered import observered
 from datetime import datetime
 from Utils import typecheck
 
@@ -36,7 +37,7 @@ class start_factory:
         self.__storage.data[storage.recipe_key()] = recepts
         self.__storage.data[storage.journal_key()] = journal
         self.__storage.data[storage.storages_key()] = storages
-        self.__storage.data[storage.turns_key()] = st_service.create_blocked_turns(self.__options.block_period)
+        st_service.create_blocked_turns()
 
 
 

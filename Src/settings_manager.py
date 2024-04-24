@@ -1,12 +1,7 @@
-from pathlib import Path
 from Src.settings import Settings
-from Utils.typecheck import typecheck
-from Src.exeptions import argument_exception, operation_exception
 from Src.Logics.reports.converter import deconvertor, convert_factory
-from Src.Logics.reports.report_json import report_json
 import json
 import uuid
-import os
 
 
 class settings_manager(object):

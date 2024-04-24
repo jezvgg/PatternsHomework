@@ -12,10 +12,10 @@ class abstract_referance(ABC, AttrWorker):
 
     @typecheck
     def __init__(self, name: str = '', id: str = ''):
+        super().__init__()
         self.name = name
         self.__id = id
         if not id: self.__id = str(uuid.uuid4())
-
 
     def __str__(self) -> None:
         return str(self.id)

@@ -1,4 +1,6 @@
 from Utils import typecheck, attribute, AttrWorker
+from Src.Logics.observer import observer
+from Src.Models.event_type import event_type
 from datetime import datetime
 
 
@@ -148,3 +150,4 @@ class Settings(AttrWorker):
     @typecheck
     def block_period(self, value: datetime):
         self.__block_period = value
+        observer.raise_event(event_type.change_block_period())

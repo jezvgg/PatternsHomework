@@ -140,6 +140,8 @@ class test_models(unittest.TestCase):
         start = start_factory(options.settings)
         start.create()
 
-        print(start.storage.data[storage.turns_key()])
-        assert bool(start.storage.data[storage.turns_key()]) == True 
+        service = storage_service(start.storage.data[storage.journal_key()])
+        result = service.create_blocked_turns()
+
+        assert result == True 
 

@@ -1,11 +1,16 @@
 import json
 from abc import ABC
 from Utils import typecheck
+from Src.settings_manager import settings_manager
+from Src.Logics.observered import observered
 from Src.Logics.reports.converter import convert_factory
+from Src.Storage.storage import storage
 
 
-class abstract_service(ABC):
+class abstract_service(ABC, observered):
     _data = []
+    _manager = settings_manager()
+    _storage = storage()
 
 
     @staticmethod
@@ -23,6 +28,7 @@ class abstract_service(ABC):
 
     @typecheck
     def __init__(self, data: list):
+        super().__init__()
         self._data = data
 
 
