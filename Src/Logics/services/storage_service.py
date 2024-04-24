@@ -46,6 +46,13 @@ class storage_service(abstract_service):
         return rests
 
 
+    def create_blocked_turns(self, stop_period):
+        
+        turn_period = period(datetime.strptime('1900-01-01', '%Y-%m-%d'), stop_period)
+
+        return self.create_turns(turn_period)
+
+
     def create_debits(self, obj: recipe_model, storage_: storage_model):
         turns = self.create_turns(obj, storage=storage_)
 

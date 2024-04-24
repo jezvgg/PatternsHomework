@@ -1,6 +1,7 @@
 from Src.Models import *
 from Src.settings import Settings
 from Src.Storage.storage import storage
+from Src.Logics.services import storage_service
 from datetime import datetime
 from Utils import typecheck
 
@@ -28,12 +29,14 @@ class start_factory:
         recepts = start_factory.create_recipets()
         journal = start_factory.create_journal()
         storages = start_factory.create_storages()
+        st_service = storage_service(journal)
         self.__storage.data[storage.nomenculature_key()] = nomens
         self.__storage.data[storage.unit_key()] = list(set([x.units for x in nomens]))
         self.__storage.data[storage.group_key()] = list(set([x.group for x in nomens]))
         self.__storage.data[storage.recipe_key()] = recepts
         self.__storage.data[storage.journal_key()] = journal
         self.__storage.data[storage.storages_key()] = storages
+        self.__storage.data[storage.turns_key()] = st_service.create_blocked_turns(self.__options.block_period)
 
 
 

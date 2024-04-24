@@ -134,3 +134,12 @@ class test_models(unittest.TestCase):
         assert service.get_nomenculature(old_nomen_id) is False
         assert service.get_nomenculature(nomen_id) is not None
 
+
+    def test_blocked_turns(self):
+        options = settings_manager()
+        start = start_factory(options.settings)
+        start.create()
+
+        print(start.storage.data[storage.turns_key()])
+        assert bool(start.storage.data[storage.turns_key()]) == True 
+

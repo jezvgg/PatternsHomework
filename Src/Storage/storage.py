@@ -45,6 +45,14 @@ class storage:
 
 
     @staticmethod
+    def turns_key() -> str:
+        '''
+            Предрасчитанные заранее обороты
+        '''
+        return 'turns'
+
+
+    @staticmethod
     def unit_key() -> str:
         '''
             Список единиц измерения
