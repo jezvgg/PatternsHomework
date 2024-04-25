@@ -10,6 +10,6 @@ class observered:
         observer.data.append(self)
 
 
-    def raise_event(self, etype: event_type):
+    def raise_event(self, etype: event_type, *args, **kwargs):
         if etype not in self._events.keys(): return
-        self._events[etype]()
+        self._events[etype](*args, **kwargs)

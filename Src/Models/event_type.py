@@ -15,6 +15,7 @@ class event_type(object):
             setattr( cls, name, super(event_type, cls).__new__(cls))
         return getattr(cls, name)
     
+    
     @staticmethod
     def change_block_period():
         return event_type('change_block_period')

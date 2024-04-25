@@ -1,10 +1,9 @@
 import uuid
-from abc import ABC
 from Src.error_proxy import error_proxy
 from Utils import attribute, typecheck, AttrWorker
 
 
-class abstract_referance(ABC, AttrWorker):
+class abstract_referance(AttrWorker, object):
     __id: uuid.UUID
     __name: str = ''
     __error: error_proxy = error_proxy()
@@ -16,6 +15,13 @@ class abstract_referance(ABC, AttrWorker):
         self.name = name
         self.__id = id
         if not id: self.__id = str(uuid.uuid4())
+
+
+    def __new__(cls, name: str, *args, **kwargs):
+        if not hasattr(cls, str(hash(name))):
+            setattr( cls, str(hash(name)), super(abstract_referance, cls).__new__(cls))
+        return getattr(cls, str(hash(name)))
+
 
     def __str__(self) -> None:
         return str(self.id)

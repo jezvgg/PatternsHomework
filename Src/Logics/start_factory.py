@@ -1,7 +1,7 @@
 from Src.Models import *
 from Src.settings import Settings
 from Src.Storage.storage import storage
-from Src.Logics.services import storage_service
+from Src.Logics.services import storage_service, post_processing_service
 from Src.Logics.observered import observered
 from datetime import datetime
 from Utils import typecheck
@@ -31,6 +31,7 @@ class start_factory:
         journal = start_factory.create_journal()
         storages = start_factory.create_storages()
         st_service = storage_service(journal)
+        post_service = post_processing_service( recepts )
         self.__storage.data[storage.nomenculature_key()] = nomens
         self.__storage.data[storage.unit_key()] = list(set([x.units for x in nomens]))
         self.__storage.data[storage.group_key()] = list(set([x.group for x in nomens]))

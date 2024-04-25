@@ -1,5 +1,6 @@
 import uuid
 from Src.Models import *
+from Src.Logics.observer import observer
 from Src.Logics.services import abstract_service
 from Src.Logics.reports.converter import deconvertor
 from Src.Logics.prototypes import nomenculature_prototype
@@ -21,6 +22,7 @@ class nomenculature_service(abstract_service):
     def del_nomenculature(self, nomen_id: str) -> bool:
         nomen = nomenculature_prototype(self._data).filter_by(uuid.UUID(nomen_id))
         if nomen:
+            observer.raise_event(event_type.delete_nomenculature(), nomen[0])
             self._data.remove(nomen[0])
             return True
         return False

@@ -1,23 +1,20 @@
 from Src.Models.abstract_references import abstract_referance
-from Utils import typecheck, attribute
+from Utils import typecheck, attribute, AttrWorker
 from Src.Models import *
 import uuid
 
 
-class recipe_row_model(abstract_referance):
+class recipe_row_model(AttrWorker):
     __nomenculatures: nomen_model = None
     __size: int = 0
     __unit: unit_model = None
 
 
     @typecheck
-    def __init__(self, nomenculature: nomen_model, size: int, unit: unit_model, id: str = str(uuid.uuid4()), name: str = ''):
+    def __init__(self, nomenculature: nomen_model, size: int, unit: unit_model):
         self.__nomenculatures = nomenculature
         self.__size = size
         self.__unit = unit
-        if not name: name = f"{self.__nomenculatures.name}, {size} {self.__unit.name}"
-
-        super().__init__(name=name, id=id)
 
 
     @attribute(head='Номенкулятура')

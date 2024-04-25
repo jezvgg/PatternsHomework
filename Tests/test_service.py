@@ -1,4 +1,4 @@
-from Src.Logics.services import storage_service, nomenculature_service
+from Src.Logics.services import *
 from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
 from Src.Storage.storage import storage
@@ -142,6 +142,18 @@ class test_models(unittest.TestCase):
 
         service = storage_service(start.storage.data[storage.journal_key()])
         result = service.create_blocked_turns()
+
+        assert result == True 
+
+    
+    def test_blocked_turns(self):
+        options = settings_manager()
+        start = start_factory(options.settings)
+        start.create()
+        nomen = start.storage.data[storage.nomenculature_key()][0]
+
+        service = post_processing_service(start.storage.data[storage.recipe_key()])
+        result = service.delete_nomenculature(nomen)
 
         assert result == True 
 
