@@ -15,6 +15,10 @@ options = settings_manager()
 start = start_factory(options.settings)
 start.create()
 print(start.storage.data[storage.nomenculature_key()][0].id)
+<<<<<<< HEAD
+=======
+
+>>>>>>> check
 
 @app.route('/api/report/<storage_key>', methods=['GET'])
 def get_report(storage_key: str):
