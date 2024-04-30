@@ -7,6 +7,7 @@ from Src.Storage.storage import storage
 from Src.Models import period
 from datetime import datetime
 from Utils import logging
+from Src.Logics.event_type import event_type
 from Src.Models import *
 
 
@@ -25,7 +26,7 @@ class storage_service(abstract_service):
 
     @create_turns.register
     @logging
-    def _(self, obj: period, **kwargs):
+    def create_turns_by_period(self, obj: period, **kwargs):
         prototype = storage_prototype( self.data )
         transactions = prototype.filter_by( obj ).data
         processing = process_factory().create(storage.process_turn_key())
@@ -35,7 +36,7 @@ class storage_service(abstract_service):
 
     @create_turns.register
     @logging
-    def _(self, obj: nomen_model, **kwargs):
+    def create_turns_by_nomen(self, obj: nomen_model, **kwargs):
         storage_ = None
         prototype = storage_prototype( self.data )
         transactions = prototype.filter_by( obj )
@@ -47,7 +48,7 @@ class storage_service(abstract_service):
 
     @create_turns.register
     @logging
-    def _(self, obj: recipe_model, **kwargs):
+    def create_turns_by_recipe(self, obj: recipe_model, **kwargs):
         if 'storage' not in kwargs.keys(): raise argument_exception("Для создания оборотов по рецепту, нужно передать склад!")
         prototype = storage_prototype( self.data )
         transactions = prototype.filter_by( kwargs['storage'] ).filter_by( obj ).data

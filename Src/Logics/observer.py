@@ -1,4 +1,4 @@
-from Src.Models.event_type import event_type
+from Src.Logics.event_type import event_type
 
 
 class observer:

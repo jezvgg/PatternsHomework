@@ -1,5 +1,5 @@
 import uuid
-from Utils import attribute, AttrWorker, typecheck
+from Utils import *
 
 
 class abstract_referance(AttrWorker):

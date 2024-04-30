@@ -1,5 +1,6 @@
 import uuid
 from Src.Models import *
+from Src.Logics.event_type import event_type
 from Src.Logics.observer import observer
 from Src.Logics.services import abstract_service
 from Src.Logics.reports.converter import deconvertor

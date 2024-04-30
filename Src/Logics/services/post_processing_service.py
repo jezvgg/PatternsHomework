@@ -1,5 +1,5 @@
 from Src.Logics.services.abstract_service import abstract_service
-from Src.Models.event_type import event_type
+from Src.Logics.event_type import event_type
 from Utils import logging
 from Src.Models import *
 

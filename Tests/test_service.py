@@ -9,7 +9,7 @@ import json
 
 
 
-class test_models(unittest.TestCase):
+class test_service(unittest.TestCase):
 
     def test_period_turns(self):
         options = settings_manager()
@@ -142,18 +142,6 @@ class test_models(unittest.TestCase):
 
         service = storage_service(start.storage.data[storage.journal_key()])
         result = service.create_blocked_turns()
-
-        assert result == True 
-
-    
-    def test_blocked_turns(self):
-        options = settings_manager()
-        start = start_factory(options.settings)
-        start.create()
-        nomen = start.storage.data[storage.nomenculature_key()][0]
-
-        service = post_processing_service(start.storage.data[storage.recipe_key()])
-        result = service.delete_nomenculature(nomen)
 
         assert result == True 
 

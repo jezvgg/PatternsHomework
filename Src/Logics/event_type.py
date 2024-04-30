@@ -4,6 +4,9 @@ class event_type(object):
     __name: str
     change_block_period = None
     delete_nomenculature = None
+    add_log = None
+    create_log = None
+
 
 
     def __init__(self, name: str):
@@ -27,3 +30,7 @@ class event_type(object):
     @staticmethod
     def add_log():
         return event_type('add_log')
+
+    @staticmethod
+    def create_log():
+        return event_type('create_log')

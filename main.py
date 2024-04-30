@@ -4,6 +4,7 @@ from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
 from Src.exeptions import operation_exception
 from Src.Storage.storage import storage
+from Src.proxy import event_proxy
 from flask import Flask, request
 from datetime import datetime
 from Src.Models import *
@@ -27,11 +28,13 @@ def get_report(storage_key: str):
 
     data = report.create(storage_key)
 
+
     result = app.response_class(
             response = data,
             status=200,
             mimetype="application/json; charset=utf-8"
         )
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return result
 
 
@@ -47,6 +50,7 @@ def get_rests():
     service = storage_service(start.storage.data[storage.journal_key()])
     result = service.create_turns(period(start=start_date, end=stop_date))
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return storage_service.create_response(result, app)
 
 @app.route('/api/storage/<nomenculature_id>/turns')
@@ -61,6 +65,7 @@ def get_nomens_rests(nomenculature_id):
     service = storage_service(start.storage.data[storage.journal_key()])
     result = service.create_turns( nomen )
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return storage_service.create_response(result, app)
 
 @app.route('/api/storage/<recipe_id>/debits')
@@ -80,6 +85,7 @@ def debits_recipe(recipe_id):
 
     start.storage.data[storage.journal_key()] += storage_service(start.storage.data[storage.journal_key()]).create_debits(recipe, storage_)
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return storage_service.create_response({'success': True}, app)
 
 @app.route('/api/storage/<nomenculature_id>/list', methods=['GET'])
@@ -98,6 +104,7 @@ def get_nomens_list(nomenculature_id):
     service = storage_service(start.storage.data[storage.journal_key()])
     result = service.create_turns( nomen, storage=storage_ )
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return storage_service.create_response(result, app)
 
 
@@ -106,6 +113,7 @@ def get_nomenculature(nomen_id):
     nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
     result = nomen_service.get_nomenculature(nomen_id)
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return nomenculature_service.create_response(result, app)
 
 
@@ -114,6 +122,7 @@ def del_nomenculature(nomen_id):
     nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
     result = nomen_service.del_nomenculature(nomen_id)
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return nomenculature_service.create_response(result, app)
 
 
@@ -123,6 +132,7 @@ def add_nomenculature():
     nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
     result = nomen_service.add_nomenculature(nomen_json)
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return nomenculature_service.create_response(result, app)
 
 
@@ -133,6 +143,7 @@ def patch_nomenculature(nomen_id):
     nomen_service = nomenculature_service(start.storage.data[storage.nomenculature_key()])
     result = nomen_service.change_nomenculature(nomen_id, nomen_json)
 
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return nomenculature_service.create_response(result, app)
 
 
@@ -149,6 +160,7 @@ def change_block_period():
             status=200,
             mimetype="application/json; charset=utf-8"
         )
+    event_proxy('/api/report/<storage_key> working correct!', 'main', 'INFO')
     return result
 
 

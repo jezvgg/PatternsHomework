@@ -1,29 +1,33 @@
-from Utils import AttrWorker, attribute
+from Utils.AttrWorker import AttrWorker
+from Utils.attribute import attribute
 from Src.Logics.observer import observer
-from Src.Models import event_type
+from Src.Logics.event_type import event_type
 from datetime import datetime
 
 
 class event_proxy(AttrWorker):
     __message = ''
     __event_type = ''
-    __error_source = ''
-    __is_error = ''
+    __source = ''
     __datetime: datetime
 
 
-    def __init__(self, error_message: str = '', error_source: str = '', event_type_ = '', datetime = datetime.now()):
-        self.error_source = error_source
-        self.__message = error_message
+    def __init__(self, message: str = '', source: str = '', event_type_ = 'DEBUG', datetime = datetime.now()):
+        self.source = source
+        self.__message = message
         self.__event_type = event_type_
         self.__datetime = datetime
         observer.raise_event(event_type.add_log(), self)
 
 
+    def __repr__(self):
+        return f'event_proxy({self.message}, {self.source}, {self.__event_type}, {self.datetime})'
+
+
     @attribute(head='Сообщение')
-    def message(self):
+    def message(self) -> str:
         '''
-            Текст ошибки
+            Сообщение события
         '''
         return self.__message
 
@@ -38,56 +42,31 @@ class event_proxy(AttrWorker):
             return
 
         self.__message = value.strip()
-        self.__is_error = True
 
 
     @attribute(head='Тип лога')
-    def event_type(self):
+    def event_type_(self) -> str:
         return self.__event_type
 
 
     @attribute(head='Период')
-    def datetime(self):
+    def datetime(self) -> datetime:
         return self.__datetime
 
-    @property
-    def error_source(self):
+
+    @attribute(head='Источник')
+    def source(self) -> str:
         '''
-            Источник ошибки.
+            Источник лога.
         '''
-        return self.__error_source
+        return self.__source
 
 
-    @error_source.setter
-    def error_source(self, value: str):
+    @source.setter
+    def source(self, value: str):
         if not isinstance(value, str):
             raise TypeError("error_source must be string!")
         if not value: return
 
-        self.__error_source = value
-        
-
-    @property
-    def is_error(self):
-        '''
-            Флаг. Есть ошибка.
-        '''
-        return self.__is_error
-
-
-    def set_error(self, exception: Exception):
-        '''
-            Сохранить ошибку.
-        '''
-        if not isinstance(exception, Exception):
-            self.error_message = "Некорректно переданы параметры."
-            self.error_source = 'set_error()'
-            return
-
-        if exception:
-            self.error_message = f'ОШИБКА! {str(exception)}'
-            self.error_source = f'ИСКЛЮЧЕНИЕ! {type(exception)}'
-            return
-
-        self.__message = ''
+        self.__source = value
         
