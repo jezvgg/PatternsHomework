@@ -1,29 +1,35 @@
+from Utils import AttrWorker, attribute
+from Src.Logics.observer import observer
+from Src.Models import event_type
+from datetime import datetime
 
 
-
-class error_proxy:
-
-    __error_message = ''
+class event_proxy(AttrWorker):
+    __message = ''
+    __event_type = ''
     __error_source = ''
     __is_error = ''
+    __datetime: datetime
 
 
-    def __init__(self, error_message: str = '', error_source: str = ''):
+    def __init__(self, error_message: str = '', error_source: str = '', event_type_ = '', datetime = datetime.now()):
         self.error_source = error_source
-        self.error_message = error_message
+        self.__message = error_message
+        self.__event_type = event_type_
+        self.__datetime = datetime
+        observer.raise_event(event_type.add_log(), self)
 
 
-
-    @property
-    def error_message(self):
+    @attribute(head='Сообщение')
+    def message(self):
         '''
             Текст ошибки
         '''
-        return self.__error_message
+        return self.__message
 
 
-    @error_message.setter
-    def error_message(self, value: str):
+    @message.setter
+    def message(self, value: str):
         if not isinstance(value, str):
             raise TypeError("error_message must be string!")
 
@@ -31,9 +37,18 @@ class error_proxy:
             self.__is_error = False
             return
 
-        self.__error_message = value.strip()
+        self.__message = value.strip()
         self.__is_error = True
 
+
+    @attribute(head='Тип лога')
+    def event_type(self):
+        return self.__event_type
+
+
+    @attribute(head='Период')
+    def datetime(self):
+        return self.__datetime
 
     @property
     def error_source(self):
@@ -74,5 +89,5 @@ class error_proxy:
             self.error_source = f'ИСКЛЮЧЕНИЕ! {type(exception)}'
             return
 
-        self.error_message = ''
+        self.__message = ''
         

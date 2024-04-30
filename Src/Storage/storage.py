@@ -22,6 +22,11 @@ class storage:
 
 
     @staticmethod
+    def log_key():
+        return 'logging_key'
+
+
+    @staticmethod
     def storages_key():
         return 'storages_key'
 

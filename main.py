@@ -137,7 +137,7 @@ def patch_nomenculature(nomen_id):
 
 
 @app.route('/api/change_block_period', methods=['GET'])
-def change_block_period(nomen_id: str):
+def change_block_period():
 
     args = request.args
     if 'block_period' in args:

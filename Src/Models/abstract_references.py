@@ -1,12 +1,10 @@
 import uuid
-from Src.error_proxy import error_proxy
-from Utils import attribute, typecheck, AttrWorker
+from Utils import attribute, AttrWorker, typecheck
 
 
-class abstract_referance(AttrWorker, object):
+class abstract_referance(AttrWorker):
     __id: uuid.UUID
     __name: str = ''
-    __error: error_proxy = error_proxy()
 
 
     @typecheck
@@ -44,11 +42,6 @@ class abstract_referance(AttrWorker, object):
     @typecheck
     def name(self, value: str, id: str = ''):
         self.__name = value.strip()
-
-
-    @property
-    def _error(self):
-        return self.__error
 
 
     @attribute(head='Код')

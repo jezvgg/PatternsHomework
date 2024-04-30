@@ -23,3 +23,7 @@ class event_type(object):
     @staticmethod
     def delete_nomenculature():
         return event_type('delete_nomenculature')
+
+    @staticmethod
+    def add_log():
+        return event_type('add_log')

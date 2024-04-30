@@ -1,13 +1,15 @@
-from Src.error_proxy import error_proxy
+from Src.proxy import event_proxy
 
 
 class exceptions(Exception):
-    __inner_error: error_proxy = error_proxy()
+    __inner_error: None
 
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+    def __init__(self, text: str = '',*args, **kwargs):
+        super().__init__(text, *args, **kwargs)
         self.__inner_error.set_error(self)
+        event_proxy(text, error_source='', event_type_='ERROR')
+        
 
 
     @property

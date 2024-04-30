@@ -1,5 +1,6 @@
 from Src.Logics.services.abstract_service import abstract_service
 from Src.Models.event_type import event_type
+from Utils import logging
 from Src.Models import *
 
 
@@ -10,7 +11,7 @@ class post_processing_service(abstract_service):
         super().__init__(*args, **kwargs)
         self._events[event_type.delete_nomenculature()] = self.delete_nomenculature
 
-    
+    @logging
     def delete_nomenculature(self, obj: nomen_model):
         print(obj.name)
         for recipe in self.data:

@@ -1,5 +1,5 @@
 import unittest
-from Src.error_proxy import error_proxy
+from Src.proxy import error_proxy
 from Src.exeptions import argument_exception
 
 
