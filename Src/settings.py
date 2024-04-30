@@ -1,6 +1,6 @@
 from Utils import typecheck, attribute, AttrWorker
 from Src.Logics.observer import observer
-from Src.Models.event_type import event_type
+from Src.Logics.event_type import event_type
 from datetime import datetime
 
 

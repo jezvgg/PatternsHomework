@@ -9,7 +9,7 @@ from Src.Models import *
 import datetime
 
 
-class test_models(unittest.TestCase):
+class test_reports(unittest.TestCase):
 
     def test_report(self):
         manager = settings_manager()

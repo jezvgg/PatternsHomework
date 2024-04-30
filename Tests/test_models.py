@@ -47,7 +47,7 @@ class test_models(unittest.TestCase):
         assert bool(nom) == True
 
     def test_recipe_row(self):
-        row = recipe_row_model(nomenculature=nomen_model(name="nomen1", group = nomen_group_model('Group'), units=unit_model(name='unit')),
+        row = recipe_row_model(nomenculature=nomen_model(name="nomen1", group = nomen_group_model(name='Group'), units=unit_model(name='unit')),
         size=200, unit=unit_model.create_gramm())
 
         assert bool(row) == True

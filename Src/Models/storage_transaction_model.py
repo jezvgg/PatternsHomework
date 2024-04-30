@@ -1,10 +1,9 @@
-from Src.Models import abstract_referance
-from Utils import typecheck, attribute
+from Utils import typecheck, attribute, AttrWorker
 from datetime import datetime
 from Src.Models import *
 
 
-class storage_transaction_model(abstract_referance):
+class storage_transaction_model(AttrWorker):
     __storage: storage_model
     __nomen: nomen_model
     __operation: bool
@@ -16,25 +15,13 @@ class storage_transaction_model(abstract_referance):
     @typecheck
     def __init__(self, storage: storage_model, 
                 nomen: nomen_model, operation: bool, countes: int, 
-                unit: unit_model, period: datetime,  name: str = ''):
-        super().__init__()
-        self.__name = name
+                unit: unit_model, period: datetime):
         self.__storage = storage
         self.__nomen = nomen
         self.__operation = operation
         self.__contes = countes
         self.__unit = unit
         self.__period = period
-
-    
-    @property
-    def name(self) -> str:
-        return self.__name
-
-    
-    @name.setter
-    def name(self, value):
-        self.__name = value
 
     
     @attribute(head='Склад')

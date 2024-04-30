@@ -1,9 +1,8 @@
-from Src.Models import abstract_referance
-from Utils import typecheck, attribute
+from Utils import typecheck, attribute, AttrWorker
 from Src.Models import *
 
 
-class storage_turn_model(abstract_referance):
+class storage_turn_model(AttrWorker):
     __storage: storage_model
     __remains: int
     __nomen: nomen_model
@@ -12,8 +11,7 @@ class storage_turn_model(abstract_referance):
 
     @typecheck
     def __init__(self, storage_: storage_model, remains: int,
-                nomen: nomen_model, unit: unit_model, name: str = ''):
-        super().__init__(name)
+                nomen: nomen_model, unit: unit_model):
         self.__storage = storage_
         self.__remains = remains
         self.__nomen = nomen

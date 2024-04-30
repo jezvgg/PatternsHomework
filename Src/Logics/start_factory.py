@@ -1,10 +1,11 @@
 from Src.Models import *
 from Src.settings import Settings
 from Src.Storage.storage import storage
-from Src.Logics.services import storage_service
-from Src.Logics.observered import observered
+from Src.Logics.services import storage_service, post_processing_service, logging_service
+from Src.Logics.observer import observer
+from Src.Logics.event_type import event_type
 from datetime import datetime
-from Utils import typecheck
+from Utils import *
 
 
 class start_factory:
@@ -30,7 +31,14 @@ class start_factory:
         recepts = start_factory.create_recipets()
         journal = start_factory.create_journal()
         storages = start_factory.create_storages()
+
         st_service = storage_service(journal)
+        post_service = post_processing_service( recepts )
+        logs = []
+        log_service = logging_service( logs )
+    
+        observer.raise_event(event_type.create_log())
+        self.__storage.data[storage.log_key()] = logs
         self.__storage.data[storage.nomenculature_key()] = nomens
         self.__storage.data[storage.unit_key()] = list(set([x.units for x in nomens]))
         self.__storage.data[storage.group_key()] = list(set([x.group for x in nomens]))

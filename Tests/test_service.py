@@ -1,4 +1,4 @@
-from Src.Logics.services import storage_service, nomenculature_service
+from Src.Logics.services import *
 from Src.Logics.start_factory import start_factory
 from Src.settings_manager import settings_manager
 from Src.Storage.storage import storage
@@ -9,7 +9,7 @@ import json
 
 
 
-class test_models(unittest.TestCase):
+class test_service(unittest.TestCase):
 
     def test_period_turns(self):
         options = settings_manager()

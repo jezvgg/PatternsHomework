@@ -1,4 +1,4 @@
-from Src.Models.event_type import event_type
+from Src.Logics.event_type import event_type
 
 
 class observer:
@@ -6,6 +6,6 @@ class observer:
 
 
     @classmethod
-    def raise_event(cls, etype: event_type):
+    def raise_event(cls, etype: event_type, *args, **kwargs):
         for obj in cls.data:
-            obj.raise_event(etype)
+            obj.raise_event(etype, *args, **kwargs)

@@ -1,15 +1,13 @@
-from Src.Models.abstract_references import abstract_referance
 from datetime import datetime
 
 
-class period(abstract_referance):
+class period:
     __start: datetime
     __end: datetime
 
-    def __init__(self, start: datetime, end: datetime, *args, **kwargs):
+    def __init__(self, start: datetime, end: datetime):
         self.__start: datetime = start
         self.__end: datetime = end
-        super().__init__(*args, **kwargs)
 
 
     @property

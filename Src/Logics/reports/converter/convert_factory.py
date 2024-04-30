@@ -1,6 +1,7 @@
 from Src.Logics.reports.converter import *
 from functools import singledispatch
 from datetime import datetime
+from Utils import AttrWorker
 from Src.Models import *
 
 class convert_factory:
@@ -12,7 +13,7 @@ class convert_factory:
 
 
     @create.register
-    def create_model(obj: abstract_referance):
+    def create_model(obj: AttrWorker):
         return convertor_models
 
 
