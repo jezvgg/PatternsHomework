@@ -1,4 +1,4 @@
-from Src.proxy import event_proxy
+
 
 
 class exceptions(Exception):
@@ -8,7 +8,7 @@ class exceptions(Exception):
     def __init__(self, text: str = '',*args, **kwargs):
         super().__init__(text, *args, **kwargs)
         self.__inner_error.set_error(self)
-        event_proxy(text, error_source='', event_type_='ERROR')
+        # event_proxy(text, error_source='', event_type_='ERROR')
         
 
 
